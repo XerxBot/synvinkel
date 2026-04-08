@@ -1,0 +1,80 @@
+[
+  {
+    "name": "Politik",
+    "slug": "politik",
+    "description": "Riksdagspolitik, partier, val och regeringsfrågor.",
+    "keywords": ["riksdag", "parti", "val", "regering", "minister", "statsminister", "opposition", "omröstning", "motion", "budgetproposition", "talman", "koalition"]
+  },
+  {
+    "name": "Ekonomi",
+    "slug": "ekonomi",
+    "description": "Makroekonomi, statsfinanser, räntor och konjunktur.",
+    "keywords": ["bnp", "inflation", "ekonomi", "ränta", "riksbank", "budget", "skatt", "kronor", "miljarder", "tillväxt", "recession", "konjunktur", "export", "import", "finans"]
+  },
+  {
+    "name": "Migration & Integration",
+    "slug": "migration",
+    "description": "Invandring, asylrätt, flyktingpolitik och integration.",
+    "keywords": ["migration", "invandring", "asyl", "flyktingar", "integration", "utvisning", "migrationsverket", "uppehållstillstånd", "ensamkommande", "invandrare", "asylsökande"]
+  },
+  {
+    "name": "Klimat & Miljö",
+    "slug": "klimat",
+    "description": "Klimatpolitik, energiomställning och miljöfrågor.",
+    "keywords": ["klimat", "utsläpp", "koldioxid", "fossilfri", "vindkraft", "solenergi", "naturvårdsverket", "parisavtalet", "hållbarhet", "global uppvärmning", "koldioxidskatt", "energi", "kärnkraft", "biologisk mångfald"]
+  },
+  {
+    "name": "Brottslighet & Rättsväsende",
+    "slug": "brottslighet",
+    "description": "Gängvåld, polisarbete, rättsprocesser och kriminalpolitik.",
+    "keywords": ["brott", "polisen", "mord", "skjutning", "gängvåld", "rättegång", "dom", "fängelse", "åklagare", "brottsförebyggande", "rättsväsende", "kriminalvård", "kriminell", "brottsofffer"]
+  },
+  {
+    "name": "Utrikes & Säkerhet",
+    "slug": "utrikes",
+    "description": "Utrikespolitik, försvar, NATO och geopolitik.",
+    "keywords": ["nato", "eu", "ukraina", "ryssland", "utrikespolitik", "sanktioner", "ambassad", "krig", "försvar", "geopolitik", "diplomati", "säkerhetspolitik", "militär", "fred", "konflikt"]
+  },
+  {
+    "name": "Hälsa & Välfärd",
+    "slug": "halsa",
+    "description": "Sjukvård, folkhälsa, socialtjänst och välfärdspolitik.",
+    "keywords": ["vård", "sjukhus", "vårdköer", "region", "folkhälsomyndigheten", "läkare", "sjuksköterska", "hälso", "tandvård", "psykisk hälsa", "socialtjänst", "äldrevård", "funktionsnedsättning"]
+  },
+  {
+    "name": "Utbildning",
+    "slug": "utbildning",
+    "description": "Skola, högre utbildning, forskning och lärarpolitik.",
+    "keywords": ["skolan", "lärare", "betyg", "gymnasium", "universitet", "skolverket", "pisa", "utbildning", "forskning", "högskola", "grundskola", "förskola", "studiemedel", "skolresultat"]
+  },
+  {
+    "name": "Arbetsmarknad",
+    "slug": "arbetsmarknad",
+    "description": "Fack, arbetsrätt, löner och sysselsättningspolitik.",
+    "keywords": ["lo", "facket", "strejk", "arbetsrätt", "lön", "sysselsättning", "arbetsförmedlingen", "a-kassa", "kollektivavtal", "uppsägning", "arbetslöshet", "arbetsgivare", "fackförbund", "jobbpolitik"]
+  },
+  {
+    "name": "Bostäder & Infrastruktur",
+    "slug": "bostader",
+    "description": "Bostadsmarknad, stadsplanering och infrastrukturinvesteringar.",
+    "keywords": ["bostäder", "hyresrätt", "bostadspriser", "bygglov", "hyra", "bostadsbrist", "planprocess", "bostadsrättsförening", "infrastruktur", "tåg", "väg", "tunnelbana", "byggindustri"]
+  },
+  {
+    "name": "Teknik & AI",
+    "slug": "teknik",
+    "description": "Digitalisering, artificiell intelligens, cybersäkerhet och tech-industrin.",
+    "keywords": ["ai", "artificiell intelligens", "digitalisering", "tech", "cybersäkerhet", "data", "algoritm", "robot", "automation", "startup", "it", "mjukvara", "plattform", "datadriven"]
+  },
+  {
+    "name": "Kultur & Media",
+    "slug": "kultur",
+    "description": "Kulturpolitik, medielandskapet, public service och yttrandefrihet.",
+    "keywords": ["kultur", "film", "musik", "teater", "svt", "public service", "medier", "press", "journalistik", "konst", "litteratur", "presstöd", "tidning", "streaming", "public service"]
+  },
+  {
+    "name": "Demokrati & Yttrandefrihet",
+    "slug": "demokrati",
+    "description": "Demokratins tillstånd, pressfrihet, rättsstat och valprocesser.",
+    "keywords": ["demokrati", "yttrandefrihet", "pressfrihet", "grundlag", "rättsstat", "censur", "valresultat", "valrörelse", "valdeltagande", "desinformation", "hatbrott", "extremism", "polarisering"]
+  }
+]
