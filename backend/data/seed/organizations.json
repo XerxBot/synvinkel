@@ -621,6 +621,23 @@
     "classification_notes": null
   },
   {
+    "name": "Svenskt Näringsliv",
+    "slug": "svenskt-naringsliv",
+    "type": "interest_org",
+    "website": "https://www.svensktnaringsliv.se",
+    "description": "Sveriges arbetsgivarorganisation och näringspolitiska röst. Representerar 60 000+ företag. Drivs av marknadsliberal agenda.",
+    "political_leaning": "center-right",
+    "gal_tan_position": "center",
+    "economic_position": "right",
+    "declared_ideology": "Fri företagsamhet, marknadsekonomi",
+    "primary_funder": "Medlemsföretag (60 000+ företag via branschorganisationer)",
+    "funding_category": "business_funded",
+    "founded_year": 2001,
+    "classification_source": "Organisationens stadgar + politisk analys",
+    "classification_confidence": "high",
+    "classification_notes": "Resultatet av sammanslagning av SAF och Industriförbundet. Tydlig höger-ekonomisk agenda med fokus på sänkta skatter, avreglering och arbetsgivarintressen."
+  },
+  {
     "name": "Reddit Svenska",
     "slug": "reddit-svenska",
     "type": "social_media",

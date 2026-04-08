@@ -95,14 +95,22 @@ class ArticleIngestor:
         # flush → article.id finns, kan refereras av ArticleAnalysis
         await self.db.flush()
 
-        # Skapa ArticleAnalysis med avsändarmetadata
+        # Avvikelsedetektering — jämför innehåll mot avsändarprofil
+        deviation_data: dict | None = None
+        if org:
+            from app.services.deviation import compute_deviation
+            deviation_data = compute_deviation(nlp, org)
+
+        # Skapa ArticleAnalysis med avsändarmetadata + avvikelseflaggor
         analysis = ArticleAnalysis(
             article_id=article.id,
             source_political_leaning=org.political_leaning if org else None,
             source_funding_category=org.funding_category if org else None,
             source_type=org.type if org else None,
             analysis_version="v0.1",
-            confidence_score=0.5,  # placeholder — djupare analys i Fas 2
+            confidence_score=deviation_data["deviation_score"] if deviation_data else None,
+            confidence_explanation=", ".join(deviation_data["flags"]) if deviation_data and deviation_data["flags"] else None,
+            coverage_spectrum=deviation_data,
         )
         self.db.add(analysis)
 
