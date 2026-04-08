@@ -10,7 +10,8 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
 
     SCRAPE_RATE_LIMIT_SECONDS: float = 1.5
-    USER_AGENT: str = "Synvinkel/0.1 (+https://synvinkel.se; research bot)"
+    USER_AGENT: str = "Synvinkel/0.1 (+https://synvinkel.analytech.se; research bot)"
+    ALLOWED_ORIGINS: str = "http://localhost:4321,http://localhost:3000"
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

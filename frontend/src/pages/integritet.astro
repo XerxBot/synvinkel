@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+const updated = '2026-04-08';
+---
+<Base title="Integritetspolicy" description="Synvinkels integritetspolicy och GDPR-information.">
+  <div class="max-w-3xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">Integritetspolicy</h1>
+    <p class="text-sm text-gray-400 mb-10">Senast uppdaterad: {updated}</p>
+
+    <div class="prose prose-gray max-w-none space-y-8 text-sm leading-relaxed">
+
+      <section>
+        <h2 class="text-lg font-semibold text-gray-900 mb-3">1. Om Synvinkel</h2>
+        <p class="text-gray-600">
+          Synvinkel är ett öppet, icke-kommersiellt projekt för transparensanalys av svenska medier
+          och politiska organisationer. Projektet drivs av Xerxes Almqvist via AnalyTech AB.
+          Kontakt: <a href="mailto:x.almqvist@gmail.com" class="text-blue-600 hover:underline">x.almqvist@gmail.com</a>
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-gray-900 mb-3">2. Vilka uppgifter samlar vi in?</h2>
+        <div class="space-y-3 text-gray-600">
+          <div class="bg-gray-50 rounded-lg p-4">
+            <p class="font-medium text-gray-800 mb-1">Besökare utan konto</p>
+            <p>Vi samlar <strong>inga personuppgifter</strong>. Inga cookies, inga trackers,
+            ingen analysprogramvara från tredje part.</p>
+          </div>
+          <div class="bg-gray-50 rounded-lg p-4">
+            <p class="font-medium text-gray-800 mb-1">Användare med konto (Community Notes)</p>
+            <ul class="list-disc list-inside space-y-1 mt-1">
+              <li>E-postadress (för inloggning)</li>
+              <li>Visningsnamn (visas publikt på noter)</li>
+              <li>Hashade lösenord (bcrypt, klartext lagras aldrig)</li>
+              <li>Community Notes du skapar och dina röster</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-gray-900 mb-3">3. Rättslig grund (GDPR)</h2>
+        <p class="text-gray-600">
+          Behandling av kontouppgifter sker med stöd av <strong>avtal</strong> (GDPR art. 6.1b) —
+          de uppgifter som är nödvändiga för att tillhandahålla tjänsten. Vi behandlar inga
+          uppgifter utöver vad som krävs för funktionen.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-gray-900 mb-3">4. Datalagring</h2>
+        <ul class="list-disc list-inside text-gray-600 space-y-1">
+          <li>Kontoupgifter lagras på EU-server (Hetzner, Frankfurt)</li>
+          <li>Inga uppgifter säljs eller delas med tredje part</li>
+          <li>Artikeldata hämtas från publikt tillgängliga källor</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-gray-900 mb-3">5. Dina rättigheter</h2>
+        <p class="text-gray-600 mb-3">Enligt GDPR har du rätt att:</p>
+        <ul class="list-disc list-inside text-gray-600 space-y-1">
+          <li><strong>Begära ut</strong> dina uppgifter (dataportabilitet)</li>
+          <li><strong>Rätta</strong> felaktiga uppgifter</li>
+          <li><strong>Radera</strong> ditt konto och tillhörande data</li>
+          <li><strong>Invända</strong> mot behandling</li>
+        </ul>
+        <p class="text-gray-600 mt-3">
+          Kontakta oss på
+          <a href="mailto:x.almqvist@gmail.com" class="text-blue-600 hover:underline">x.almqvist@gmail.com</a>
+          för alla GDPR-förfrågningar. Vi svarar inom 30 dagar.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-gray-900 mb-3">6. Cookies</h2>
+        <p class="text-gray-600">
+          Synvinkel använder <strong>inga cookies</strong>. Inloggningsstatus hanteras via
+          localStorage i din webbläsare och skickas aldrig till tredje part.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-gray-900 mb-3">7. Öppen källkod</h2>
+        <p class="text-gray-600">
+          Synvinkels källkod är publik på
+          <a href="https://github.com/XerxBot/synvinkel" class="text-blue-600 hover:underline" target="_blank">
+            github.com/XerxBot/synvinkel
+          </a>.
+          Du kan granska exakt vilken data som samlas in och hur den behandlas.
+        </p>
+      </section>
+
+    </div>
+  </div>
+</Base>
