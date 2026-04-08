@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import UUID
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -11,6 +11,7 @@ from app.models.article import Article, ScrapeJob
 from app.models.organization import SourceOrganization
 from app.models.topic import Topic
 from app.models.user import CommunityNote
+from app.tasks.scrape import SCRAPER_REGISTRY, run_scrape_job
 
 router = APIRouter()
 
@@ -55,9 +56,25 @@ class ScrapeJobRequest(BaseModel):
     limit: int = 20
 
 
+@router.get("/scrape-jobs/sources")
+async def list_scrape_sources():
+    """Visa tillgängliga source_slugs för scraping."""
+    return {"sources": list(SCRAPER_REGISTRY.keys())}
+
+
 @router.post("/scrape-jobs", status_code=202)
-async def trigger_scrape(payload: ScrapeJobRequest, db: AsyncSession = Depends(get_db)):
-    """Trigga ett scraping-jobb. Task queue implementeras i Fas 1."""
+async def trigger_scrape(
+    payload: ScrapeJobRequest,
+    background_tasks: BackgroundTasks,
+    db: AsyncSession = Depends(get_db),
+):
+    """Trigga ett scraping-jobb. Körs asynkront i bakgrunden."""
+    if payload.source_slug not in SCRAPER_REGISTRY:
+        raise HTTPException(
+            status_code=422,
+            detail=f"Okänd källa '{payload.source_slug}'. Tillgängliga: {list(SCRAPER_REGISTRY)}",
+        )
+
     job = ScrapeJob(
         source_name=payload.source_slug,
         status="queued",
@@ -66,7 +83,39 @@ async def trigger_scrape(payload: ScrapeJobRequest, db: AsyncSession = Depends(g
     db.add(job)
     await db.commit()
     await db.refresh(job)
-    return {"job_id": str(job.id), "status": "queued", "message": "Jobb skapat. Task queue i Fas 1."}
+
+    background_tasks.add_task(
+        run_scrape_job,
+        job_id=job.id,
+        source_slug=payload.source_slug,
+        limit=payload.limit,
+    )
+
+    return {
+        "job_id": str(job.id),
+        "status": "queued",
+        "source": payload.source_slug,
+        "limit": payload.limit,
+        "message": f"Jobb skapat för '{payload.source_slug}'. Körs i bakgrunden.",
+    }
+
+
+@router.get("/scrape-jobs/{job_id}")
+async def get_scrape_job(job_id: UUID, db: AsyncSession = Depends(get_db)):
+    """Hämta status för ett specifikt scrape-jobb."""
+    job = await db.scalar(select(ScrapeJob).where(ScrapeJob.id == job_id))
+    if not job:
+        raise HTTPException(status_code=404, detail="Jobb hittades inte")
+    return {
+        "id": str(job.id),
+        "source_name": job.source_name,
+        "status": job.status,
+        "articles_found": job.articles_found,
+        "articles_new": job.articles_new,
+        "started_at": job.started_at.isoformat() if job.started_at else None,
+        "completed_at": job.completed_at.isoformat() if job.completed_at else None,
+        "errors": job.errors,
+    }
 
 
 @router.put("/notes/{note_id}/review")
@@ -80,7 +129,6 @@ async def review_note(
     result = await db.execute(select(CommunityNote).where(CommunityNote.id == note_id))
     note = result.scalar_one_or_none()
     if not note:
-        from fastapi import HTTPException
         raise HTTPException(status_code=404, detail="Note hittades inte")
     note.status = verdict  # "approved" / "rejected"
     note.review_notes = review_notes

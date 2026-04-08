@@ -24,7 +24,11 @@ RUN uv pip install --system \
     "python-multipart>=0.0.9" \
     "feedparser>=6.0.11" \
     "tenacity>=8.3.0" \
-    "structlog>=24.2.0"
+    "structlog>=24.2.0" \
+    "spacy>=3.7.0"
+
+# Swedish spaCy model (~12MB) — installeras en gång i imagen
+RUN python -m spacy download sv_core_news_sm
 
 COPY . .
 
