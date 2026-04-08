@@ -2,7 +2,8 @@
 import Base from '../../layouts/Base.astro';
 import TransparencyBlock from '../../components/TransparencyBlock.astro';
 import PerspectivesBlock from '../../components/PerspectivesBlock.astro';
-import { fetchArticle, fetchSource, fetchPerspectives, formatDate, formatSentiment } from '../../lib/api';
+import NotesSection from '../../components/NotesSection';
+import { fetchArticle, fetchSource, fetchPerspectives, formatDate, formatSentiment, CLIENT_BASE } from '../../lib/api';
 
 const { id } = Astro.params;
 if (!id) return Astro.redirect('/');
@@ -105,6 +106,9 @@ const sentimentColor = article.sentiment_score === null ? 'text-gray-400'
           ) : (
             <p class="text-gray-400 italic">Fulltext ej tillgänglig — se källartikeln.</p>
           )}
+
+          <!-- Community Notes -->
+          <NotesSection apiBase={CLIENT_BASE} articleId={id} client:load />
 
           <!-- Tags -->
           <div class="mt-8 pt-6 border-t border-gray-100 space-y-3">

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from uuid import UUID
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
@@ -10,7 +10,8 @@ from app.database import get_db
 from app.models.article import Article, ScrapeJob
 from app.models.organization import SourceOrganization
 from app.models.topic import Topic
-from app.models.user import CommunityNote
+from app.models.user import CommunityNote, User
+from app.services.auth import require_admin
 from app.tasks.scrape import SCRAPER_REGISTRY, run_scrape_job
 
 router = APIRouter()
@@ -118,20 +119,47 @@ async def get_scrape_job(job_id: UUID, db: AsyncSession = Depends(get_db)):
     }
 
 
+@router.get("/notes/pending")
+async def list_pending_notes(
+    db: AsyncSession = Depends(get_db),
+    admin: User = Depends(require_admin),
+):
+    """Hämta alla pending notes för moderering."""
+    result = await db.execute(
+        select(CommunityNote)
+        .where(CommunityNote.status == "pending")
+        .order_by(CommunityNote.created_at.asc())
+    )
+    notes = result.scalars().all()
+    return [
+        {
+            "id": str(n.id),
+            "article_id": str(n.article_id),
+            "note_type": n.note_type,
+            "content": n.content,
+            "evidence_urls": n.evidence_urls or [],
+            "created_at": n.created_at.isoformat(),
+        }
+        for n in notes
+    ]
+
+
 @router.put("/notes/{note_id}/review")
 async def review_note(
     note_id: UUID,
     verdict: str,
     review_notes: str = "",
     db: AsyncSession = Depends(get_db),
+    admin: User = Depends(require_admin),
 ):
-    """Moderera en community note."""
+    """Moderera en community note (admin only)."""
     result = await db.execute(select(CommunityNote).where(CommunityNote.id == note_id))
     note = result.scalar_one_or_none()
     if not note:
         raise HTTPException(status_code=404, detail="Note hittades inte")
     note.status = verdict  # "approved" / "rejected"
     note.review_notes = review_notes
-    note.reviewed_at = datetime.utcnow()
+    note.reviewed_at = datetime.now(timezone.utc)
+    note.reviewed_by = admin.id
     await db.commit()
     return {"id": str(note_id), "status": verdict}

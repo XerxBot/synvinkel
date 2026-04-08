@@ -164,6 +164,15 @@ CREATE TABLE data_source_configs (
     created_at  TIMESTAMPTZ DEFAULT NOW()
 );
 
+CREATE TABLE note_votes (
+    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    note_id     UUID REFERENCES community_notes(id) ON DELETE CASCADE NOT NULL,
+    user_id     UUID REFERENCES users(id) NOT NULL,
+    is_upvote   BOOLEAN NOT NULL,
+    created_at  TIMESTAMPTZ DEFAULT NOW(),
+    UNIQUE(note_id, user_id)
+);
+
 -- Indexes
 CREATE INDEX idx_articles_fulltext ON articles USING GIN (to_tsvector('swedish', coalesce(title, '') || ' ' || coalesce(full_text, '')));
 CREATE INDEX idx_articles_source ON articles(source_org_id);

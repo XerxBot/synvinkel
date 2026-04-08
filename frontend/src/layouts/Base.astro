@@ -15,6 +15,17 @@ const { title = 'Synvinkel', description = 'Alla har en synvinkel — vi visar v
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script is:inline>
+    // Update nav auth state from localStorage on every page load
+    const user = localStorage.getItem('sv_user');
+    if (user) {
+      const { display_name } = JSON.parse(user);
+      document.addEventListener('DOMContentLoaded', () => {
+        const el = document.getElementById('nav-auth');
+        if (el) el.innerHTML = `<span class="text-gray-300">${display_name}</span>`;
+      });
+    }
+  </script>
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col">
 
@@ -28,10 +39,13 @@ const { title = 'Synvinkel', description = 'Alla har en synvinkel — vi visar v
           <p class="text-xs text-gray-400 leading-none">Alla har en synvinkel — vi visar vilken</p>
         </div>
       </a>
-      <nav class="flex items-center gap-6 text-sm">
+      <nav class="flex items-center gap-5 text-sm">
         <a href="/" class="text-gray-300 hover:text-white transition-colors">Sök</a>
         <a href="/sources" class="text-gray-300 hover:text-white transition-colors">Källor</a>
         <a href="/topics" class="text-gray-300 hover:text-white transition-colors">Ämnen</a>
+        <span id="nav-auth" class="text-gray-400 text-xs">
+          <a href="/login" class="hover:text-white transition-colors">Logga in</a>
+        </span>
         <a href="/admin" class="text-gray-400 hover:text-white transition-colors text-xs border border-gray-700 rounded px-2 py-1">Admin</a>
       </nav>
     </div>

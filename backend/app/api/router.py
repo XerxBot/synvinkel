@@ -1,9 +1,10 @@
 from fastapi import APIRouter
 
-from app.api import admin, analyze, articles, export, notes, sources, topics
+from app.api import admin, analyze, articles, auth, export, notes, sources, topics
 
 router = APIRouter()
 
+router.include_router(auth.router,      prefix="/auth",     tags=["auth"])
 router.include_router(sources.router,   prefix="/sources",  tags=["sources"])
 router.include_router(articles.router,  prefix="/articles", tags=["articles"])
 router.include_router(topics.router,    prefix="/topics",   tags=["topics"])
