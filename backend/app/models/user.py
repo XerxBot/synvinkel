@@ -3,7 +3,8 @@ from datetime import datetime
 from typing import Optional
 
 from sqlalchemy import Boolean, Float, ForeignKey, Integer, Text, text
-from sqlalchemy.dialects.postgresql import ARRAY, TIMESTAMPTZ, UUID
+from sqlalchemy import TIMESTAMP
+from sqlalchemy.dialects.postgresql import ARRAY, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
@@ -21,8 +22,8 @@ class User(Base):
     role: Mapped[str] = mapped_column(Text, server_default=text("'user'"))
     reputation_score: Mapped[float] = mapped_column(Float, server_default=text("0"))
     is_active: Mapped[bool] = mapped_column(Boolean, server_default=text("true"))
-    created_at: Mapped[datetime] = mapped_column(TIMESTAMPTZ, server_default=text("NOW()"))
-    updated_at: Mapped[datetime] = mapped_column(TIMESTAMPTZ, server_default=text("NOW()"))
+    created_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("NOW()"))
+    updated_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("NOW()"))
 
 
 class CommunityNote(Base):
@@ -48,7 +49,7 @@ class CommunityNote(Base):
     reviewed_by: Mapped[Optional[uuid.UUID]] = mapped_column(
         UUID(as_uuid=True), ForeignKey("users.id")
     )
-    reviewed_at: Mapped[Optional[datetime]] = mapped_column(TIMESTAMPTZ)
+    reviewed_at: Mapped[Optional[datetime]] = mapped_column(TIMESTAMP(timezone=True))
     review_notes: Mapped[Optional[str]] = mapped_column(Text)
-    created_at: Mapped[datetime] = mapped_column(TIMESTAMPTZ, server_default=text("NOW()"))
-    updated_at: Mapped[datetime] = mapped_column(TIMESTAMPTZ, server_default=text("NOW()"))
+    created_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("NOW()"))
+    updated_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("NOW()"))

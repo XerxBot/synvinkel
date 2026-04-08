@@ -4,7 +4,8 @@ from typing import Optional
 
 from pgvector.sqlalchemy import Vector
 from sqlalchemy import Boolean, Float, ForeignKey, Integer, Text, text
-from sqlalchemy.dialects.postgresql import ARRAY, JSONB, TIMESTAMPTZ, UUID
+from sqlalchemy import TIMESTAMP
+from sqlalchemy.dialects.postgresql import ARRAY, JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
@@ -19,8 +20,8 @@ class Article(Base):
     url: Mapped[Optional[str]] = mapped_column(Text, unique=True)
     title: Mapped[str] = mapped_column(Text, nullable=False)
     subtitle: Mapped[Optional[str]] = mapped_column(Text)
-    published_at: Mapped[Optional[datetime]] = mapped_column(TIMESTAMPTZ)
-    scraped_at: Mapped[datetime] = mapped_column(TIMESTAMPTZ, server_default=text("NOW()"))
+    published_at: Mapped[Optional[datetime]] = mapped_column(TIMESTAMP(timezone=True))
+    scraped_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("NOW()"))
     source_org_id: Mapped[Optional[uuid.UUID]] = mapped_column(
         UUID(as_uuid=True), ForeignKey("source_organizations.id")
     )
@@ -40,8 +41,8 @@ class Article(Base):
     embedding: Mapped[Optional[list]] = mapped_column(Vector(768))
     data_source: Mapped[Optional[str]] = mapped_column(Text)
     scrape_job_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True))
-    created_at: Mapped[datetime] = mapped_column(TIMESTAMPTZ, server_default=text("NOW()"))
-    updated_at: Mapped[datetime] = mapped_column(TIMESTAMPTZ, server_default=text("NOW()"))
+    created_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("NOW()"))
+    updated_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("NOW()"))
 
 
 class ArticleAnalysis(Base):
@@ -66,7 +67,7 @@ class ArticleAnalysis(Base):
     analysis_version: Mapped[str] = mapped_column(Text, server_default=text("'v0.1'"))
     confidence_score: Mapped[Optional[float]] = mapped_column(Float)
     confidence_explanation: Mapped[Optional[str]] = mapped_column(Text)
-    created_at: Mapped[datetime] = mapped_column(TIMESTAMPTZ, server_default=text("NOW()"))
+    created_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("NOW()"))
 
 
 class ScrapeJob(Base):
@@ -77,13 +78,13 @@ class ScrapeJob(Base):
     )
     source_name: Mapped[str] = mapped_column(Text, nullable=False)
     status: Mapped[str] = mapped_column(Text, server_default=text("'pending'"))
-    started_at: Mapped[Optional[datetime]] = mapped_column(TIMESTAMPTZ)
-    completed_at: Mapped[Optional[datetime]] = mapped_column(TIMESTAMPTZ)
+    started_at: Mapped[Optional[datetime]] = mapped_column(TIMESTAMP(timezone=True))
+    completed_at: Mapped[Optional[datetime]] = mapped_column(TIMESTAMP(timezone=True))
     articles_found: Mapped[int] = mapped_column(Integer, server_default=text("0"))
     articles_new: Mapped[int] = mapped_column(Integer, server_default=text("0"))
     errors: Mapped[Optional[dict]] = mapped_column(JSONB)
     config: Mapped[Optional[dict]] = mapped_column(JSONB)
-    created_at: Mapped[datetime] = mapped_column(TIMESTAMPTZ, server_default=text("NOW()"))
+    created_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("NOW()"))
 
 
 class DataSourceConfig(Base):
@@ -100,5 +101,5 @@ class DataSourceConfig(Base):
     config: Mapped[dict] = mapped_column(JSONB, nullable=False)
     schedule: Mapped[Optional[str]] = mapped_column(Text)
     is_active: Mapped[bool] = mapped_column(Boolean, server_default=text("true"))
-    last_run_at: Mapped[Optional[datetime]] = mapped_column(TIMESTAMPTZ)
-    created_at: Mapped[datetime] = mapped_column(TIMESTAMPTZ, server_default=text("NOW()"))
+    last_run_at: Mapped[Optional[datetime]] = mapped_column(TIMESTAMP(timezone=True))
+    created_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("NOW()"))

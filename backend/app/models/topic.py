@@ -3,7 +3,8 @@ from datetime import datetime
 from typing import Optional
 
 from sqlalchemy import Float, ForeignKey, Text, text
-from sqlalchemy.dialects.postgresql import ARRAY, TIMESTAMPTZ, UUID
+from sqlalchemy import TIMESTAMP
+from sqlalchemy.dialects.postgresql import ARRAY, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
@@ -19,7 +20,7 @@ class Topic(Base):
     slug: Mapped[str] = mapped_column(Text, unique=True, nullable=False)
     description: Mapped[Optional[str]] = mapped_column(Text)
     keywords: Mapped[Optional[list]] = mapped_column(ARRAY(Text))
-    created_at: Mapped[datetime] = mapped_column(TIMESTAMPTZ, server_default=text("NOW()"))
+    created_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("NOW()"))
 
 
 class ArticleTopic(Base):

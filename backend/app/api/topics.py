@@ -9,7 +9,7 @@ from app.schemas.topic import TopicResponse
 router = APIRouter()
 
 
-@router.get("/", response_model=list[TopicResponse])
+@router.get("", response_model=list[TopicResponse])
 async def list_topics(db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(Topic).order_by(Topic.name))
     return result.scalars().all()

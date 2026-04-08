@@ -20,7 +20,7 @@ class NoteCreate(BaseModel):
     verdict: Optional[str] = None
 
 
-@router.get("/")
+@router.get("")
 async def list_notes(
     article_id: Optional[UUID] = None,
     status: str = "approved",

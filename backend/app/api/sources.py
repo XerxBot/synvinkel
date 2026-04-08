@@ -12,7 +12,7 @@ from app.services.url_analyzer import DOMAIN_MAP
 router = APIRouter()
 
 
-@router.get("/", response_model=list[OrganizationResponse])
+@router.get("", response_model=list[OrganizationResponse])
 async def list_sources(
     type: Optional[str] = None,
     leaning: Optional[str] = None,

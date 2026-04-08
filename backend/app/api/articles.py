@@ -12,7 +12,7 @@ from app.schemas.article import ArticleDetail, ArticleResponse
 router = APIRouter()
 
 
-@router.get("/", response_model=list[ArticleResponse])
+@router.get("", response_model=list[ArticleResponse])
 async def list_articles(
     source_slug: Optional[str] = None,
     topic: Optional[str] = None,
