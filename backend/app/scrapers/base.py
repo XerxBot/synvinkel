@@ -61,8 +61,8 @@ class BaseScraper(ABC):
         ...
 
     @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=2, max=10))
-    async def _get(self, url: str) -> httpx.Response:
+    async def _get(self, url: str, params: dict | None = None) -> httpx.Response:
         await asyncio.sleep(settings.SCRAPE_RATE_LIMIT_SECONDS)
-        response = await self.client.get(url)
+        response = await self.client.get(url, params=params)
         response.raise_for_status()
         return response
