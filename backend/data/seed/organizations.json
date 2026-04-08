@@ -619,5 +619,22 @@
     "classification_source": "Institutionell roll",
     "classification_confidence": "high",
     "classification_notes": null
+  },
+  {
+    "name": "Reddit Svenska",
+    "slug": "reddit-svenska",
+    "type": "social_media",
+    "website": "https://www.reddit.com/r/svenskpolitik",
+    "description": "Sammanslagning av r/svenskpolitik och r/sweden — användargenererat innehåll utan redaktionell styrning.",
+    "political_leaning": "neutral",
+    "gal_tan_position": "center-left",
+    "economic_position": "center",
+    "declared_ideology": null,
+    "primary_funder": "Reddit Inc.",
+    "funding_category": "commercial_media",
+    "founded_year": 2010,
+    "classification_source": "Plattformsanalys",
+    "classification_confidence": "low",
+    "classification_notes": "Ingen redaktionell profil — användargenererat. GAL-TAN-uppskattning baserad på demografisk analys av r/svenskpolitik-användare."
   }
 ]
