@@ -1,0 +1,51 @@
+---
+import Base from '../../layouts/Base.astro';
+import SourceCard from '../../components/SourceCard.astro';
+import { fetchSources, LEANING_LABELS } from '../../lib/api';
+
+const sources = await fetchSources().catch(() => []);
+
+// Gruppera efter typ
+const groups: Record<string, typeof sources> = {};
+for (const s of sources) {
+  (groups[s.type] ??= []).push(s);
+}
+
+const TYPE_ORDER = [
+  'newspaper', 'public_broadcaster', 'online_news', 'magazine',
+  'think_tank', 'political_party', 'interest_org', 'government', 'social_media',
+];
+const sortedGroups = TYPE_ORDER
+  .filter(t => groups[t])
+  .map(t => ({ type: t, orgs: groups[t] }));
+
+const TYPE_LABELS: Record<string, string> = {
+  newspaper: 'Tidningar', public_broadcaster: 'Public service',
+  online_news: 'Nyhetssajter', magazine: 'Tidskrifter',
+  think_tank: 'Tankesmedjor', political_party: 'Politiska partier',
+  interest_org: 'Intresseorganisationer', government: 'Regering & myndigheter',
+  social_media: 'Sociala medier',
+};
+---
+<Base title="Källor" description="39 klassificerade svenska medier och organisationer.">
+  <div class="max-w-6xl mx-auto px-4 py-10">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Källor</h1>
+      <p class="text-gray-500">
+        {sources.length} klassificerade organisationer — ideologi, finansiering och politisk position.
+      </p>
+    </div>
+
+    {sortedGroups.map(({ type, orgs }) => (
+      <section class="mb-10">
+        <h2 class="text-lg font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-200">
+          {TYPE_LABELS[type] ?? type}
+          <span class="text-sm font-normal text-gray-400 ml-2">({orgs.length})</span>
+        </h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {orgs.map(org => <SourceCard org={org} />)}
+        </div>
+      </section>
+    ))}
+  </div>
+</Base>

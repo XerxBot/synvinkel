@@ -1,0 +1,62 @@
+---
+import type { Article } from '../lib/api';
+import { formatDate, formatSentiment } from '../lib/api';
+
+interface Props {
+  article: Article;
+  showSource?: boolean;
+}
+const { article, showSource = true } = Astro.props;
+
+const sentimentColor = article.sentiment_score === null ? 'text-gray-400'
+  : article.sentiment_score > 0.3 ? 'text-green-600'
+  : article.sentiment_score < -0.3 ? 'text-red-500'
+  : 'text-gray-500';
+---
+
+<a href={`/articles/${article.id}`}
+   class="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-gray-300 transition-all group">
+  <div class="flex items-start justify-between gap-3 mb-2">
+    <h3 class="font-semibold text-gray-900 group-hover:text-blue-700 transition-colors line-clamp-2 leading-snug">
+      {article.title}
+    </h3>
+    {article.article_type && (
+      <span class="shrink-0 text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full capitalize">
+        {article.article_type.replace(/_/g, ' ')}
+      </span>
+    )}
+  </div>
+
+  {article.subtitle && (
+    <p class="text-sm text-gray-500 mb-3 line-clamp-1">{article.subtitle}</p>
+  )}
+
+  <div class="flex flex-wrap items-center gap-3 text-xs text-gray-400 mt-3">
+    {showSource && article.data_source && (
+      <span class="text-blue-500 font-medium">{article.data_source}</span>
+    )}
+    <span>{formatDate(article.published_at)}</span>
+    {article.word_count && <span>{article.word_count.toLocaleString('sv-SE')} ord</span>}
+    {article.sentiment_score !== null && (
+      <span class={sentimentColor}>
+        {formatSentiment(article.sentiment_score)}
+      </span>
+    )}
+  </div>
+
+  {article.topics && article.topics.length > 0 && (
+    <div class="flex flex-wrap gap-1.5 mt-3">
+      {article.topics.slice(0, 5).map(t => (
+        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">{t}</span>
+      ))}
+    </div>
+  )}
+
+  {article.mentioned_parties && article.mentioned_parties.length > 0 && (
+    <div class="flex flex-wrap gap-1.5 mt-2">
+      {article.mentioned_parties.slice(0, 4).map(p => (
+        <span class="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full">{p}</span>
+      ))}
+    </div>
+  )}
+</a>

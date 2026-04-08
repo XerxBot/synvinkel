@@ -1,0 +1,53 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title = 'Synvinkel', description = 'Alla har en synvinkel — vi visar vilken.' } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content={description} />
+  <title>{title === 'Synvinkel' ? 'Synvinkel' : `${title} — Synvinkel`}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-navy-900 text-white shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 bg-gradient-to-br from-red-500 via-gray-300 to-blue-600 rounded-full"></div>
+        <div>
+          <span class="text-xl font-bold tracking-tight">Synvinkel</span>
+          <p class="text-xs text-gray-400 leading-none">Alla har en synvinkel — vi visar vilken</p>
+        </div>
+      </a>
+      <nav class="flex items-center gap-6 text-sm">
+        <a href="/" class="text-gray-300 hover:text-white transition-colors">Sök</a>
+        <a href="/sources" class="text-gray-300 hover:text-white transition-colors">Källor</a>
+        <a href="/admin" class="text-gray-400 hover:text-white transition-colors text-xs border border-gray-700 rounded px-2 py-1">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="flex-1">
+    <slot />
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-navy-900 text-gray-500 text-xs py-6 mt-12">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between gap-2">
+      <span>Synvinkel — öppen källkod, ingen affärsmodell, inga beroenden</span>
+      <a href="https://github.com/XerxBot/synvinkel" class="hover:text-gray-300 transition-colors">GitHub</a>
+    </div>
+  </footer>
+
+</body>
+</html>

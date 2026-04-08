@@ -1,0 +1,148 @@
+---
+import Base from '../../layouts/Base.astro';
+import TransparencyBlock from '../../components/TransparencyBlock.astro';
+import { fetchArticle, fetchSource, formatDate, formatSentiment } from '../../lib/api';
+
+const { id } = Astro.params;
+if (!id) return Astro.redirect('/');
+
+let article;
+try {
+  article = await fetchArticle(id);
+} catch {
+  return Astro.redirect('/');
+}
+
+// Hämta källprofil om möjligt
+let org = null;
+if (article.data_source) {
+  org = await fetchSource(article.data_source).catch(() => null);
+}
+
+const sentimentLabel = formatSentiment(article.sentiment_score);
+const sentimentColor = article.sentiment_score === null ? 'text-gray-400'
+  : article.sentiment_score > 0.3 ? 'text-green-600'
+  : article.sentiment_score < -0.3 ? 'text-red-500'
+  : 'text-gray-500';
+---
+<Base title={article.title}>
+  <div class="max-w-5xl mx-auto px-4 py-10">
+
+    <div class="mb-6">
+      <a href="/" class="text-sm text-blue-600 hover:underline">← Tillbaka till sökning</a>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+
+      <!-- Main article -->
+      <article class="lg:col-span-2">
+        <div class="bg-white border border-gray-200 rounded-2xl p-8">
+          <!-- Meta -->
+          <div class="flex flex-wrap items-center gap-2 text-xs text-gray-400 mb-4">
+            {article.data_source && (
+              <a href={`/sources/${article.data_source}`}
+                 class="text-blue-600 font-medium hover:underline">
+                {org?.name ?? article.data_source}
+              </a>
+            )}
+            <span>·</span>
+            <span>{formatDate(article.published_at)}</span>
+            {article.article_type && (
+              <>
+                <span>·</span>
+                <span class="capitalize">{article.article_type.replace(/_/g, ' ')}</span>
+              </>
+            )}
+            {article.section && (
+              <>
+                <span>·</span>
+                <span>{article.section}</span>
+              </>
+            )}
+          </div>
+
+          <!-- Title -->
+          <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight mb-3">
+            {article.title}
+          </h1>
+          {article.subtitle && (
+            <p class="text-lg text-gray-600 mb-6">{article.subtitle}</p>
+          )}
+
+          <!-- Author & stats -->
+          <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 pb-6 border-b border-gray-100 mb-6">
+            {article.author_names && article.author_names.length > 0 && (
+              <span>av {article.author_names.join(', ')}</span>
+            )}
+            {article.word_count && (
+              <span>{article.word_count.toLocaleString('sv-SE')} ord</span>
+            )}
+            {article.sentiment_score !== null && (
+              <span class={sentimentColor}>
+                Sentiment: {sentimentLabel} ({article.sentiment_score?.toFixed(2)})
+              </span>
+            )}
+            {article.url && (
+              <a href={article.url} target="_blank" rel="noopener noreferrer"
+                 class="text-blue-500 hover:underline ml-auto">
+                Källartikel →
+              </a>
+            )}
+          </div>
+
+          <!-- Full text -->
+          {article.full_text ? (
+            <div class="prose prose-gray max-w-none text-sm leading-relaxed text-gray-700">
+              {article.full_text.split('\n').filter(Boolean).map(p => (
+                <p class="mb-3">{p}</p>
+              ))}
+            </div>
+          ) : (
+            <p class="text-gray-400 italic">Fulltext ej tillgänglig — se källartikeln.</p>
+          )}
+
+          <!-- Tags -->
+          <div class="mt-8 pt-6 border-t border-gray-100 space-y-3">
+            {article.topics && article.topics.length > 0 && (
+              <div class="flex flex-wrap gap-2 items-center">
+                <span class="text-xs text-gray-400 uppercase tracking-wide">Ämnen:</span>
+                {article.topics.map(t => (
+                  <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">{t}</span>
+                ))}
+              </div>
+            )}
+            {article.mentioned_parties && article.mentioned_parties.length > 0 && (
+              <div class="flex flex-wrap gap-2 items-center">
+                <span class="text-xs text-gray-400 uppercase tracking-wide">Partier:</span>
+                {article.mentioned_parties.map(p => (
+                  <span class="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full">{p}</span>
+                ))}
+              </div>
+            )}
+            {article.mentioned_persons && article.mentioned_persons.length > 0 && (
+              <div class="flex flex-wrap gap-2 items-center">
+                <span class="text-xs text-gray-400 uppercase tracking-wide">Personer:</span>
+                {article.mentioned_persons.slice(0, 8).map(p => (
+                  <span class="text-xs bg-purple-50 text-purple-600 px-2 py-0.5 rounded-full">{p}</span>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </article>
+
+      <!-- Sidebar: Transparency -->
+      <aside class="lg:col-span-1 space-y-4">
+        <TransparencyBlock org={org} />
+
+        <div class="bg-white border border-gray-200 rounded-xl p-4 text-xs text-gray-400 space-y-1">
+          <p class="font-medium text-gray-500">Teknisk info</p>
+          <p>Scrapad: {formatDate(article.scraped_at)}</p>
+          {article.language && <p>Språk: {article.language.toUpperCase()}</p>}
+          <p class="font-mono text-gray-300 break-all">{id}</p>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,30 @@
+---
+/**
+ * BiasBar — vänster-höger-spektrum med positionsindikator.
+ * position: 0 (yttersta vänster) → 100 (yttersta höger)
+ */
+interface Props {
+  position: number;
+  label?: string;
+  size?: 'sm' | 'md';
+}
+const { position, label, size = 'md' } = Astro.props;
+const clampedPos = Math.max(0, Math.min(100, position));
+const barHeight = size === 'sm' ? 'h-2' : 'h-3';
+---
+
+<div class="w-full">
+  {label && <p class="text-xs text-gray-500 mb-1">{label}</p>}
+  <div class={`relative w-full ${barHeight} rounded-full overflow-hidden`}
+       style="background: linear-gradient(to right, #dc2626, #ef4444, #d1d5db, #93c5fd, #1d4ed8)">
+    <!-- Position indicator -->
+    <div
+      class={`absolute top-0 ${size === 'sm' ? 'w-2 h-2' : 'w-3 h-3'} bg-white border-2 border-gray-800 rounded-full -translate-x-1/2 shadow`}
+      style={`left: ${clampedPos}%`}
+    ></div>
+  </div>
+  <div class="flex justify-between text-xs text-gray-400 mt-0.5">
+    <span>Vänster</span>
+    <span>Höger</span>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+---
+import Base from '../../layouts/Base.astro';
+import AdminDashboard from '../../components/AdminDashboard';
+import { CLIENT_BASE } from '../../lib/api';
+---
+<Base title="Admin" description="Synvinkel admin — scraping och pipeline-status.">
+  <div class="max-w-5xl mx-auto px-4 py-10">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Admin</h1>
+      <p class="text-gray-500">Pipeline-status, scraping-jobb och datakvalitet.</p>
+    </div>
+    <AdminDashboard apiBase={CLIENT_BASE} client:load />
+  </div>
+</Base>

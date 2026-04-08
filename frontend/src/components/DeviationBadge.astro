@@ -1,0 +1,50 @@
+---
+/**
+ * DeviationBadge — visar avvikelse mellan artikelinnehåll och avsändarprofil.
+ */
+interface Props {
+  score: number | null;
+  flags?: string[];
+}
+const { score, flags = [] } = Astro.props;
+
+const FLAG_LABELS: Record<string, string> = {
+  sentiment_more_negative_than_expected: 'Mer negativt ton än väntat',
+  sentiment_more_positive_than_expected: 'Mer positivt ton än väntat',
+  primarily_mentions_opposing_parties: 'Nämner mestadels motståndarsidan',
+  balanced_party_coverage_for_right_source: 'Balanserad partibevakning (ovanligt)',
+  balanced_party_coverage_for_left_source: 'Balanserad partibevakning (ovanligt)',
+  high_deviation: 'Hög avvikelse från källprofil',
+  moderate_deviation: 'Viss avvikelse från källprofil',
+};
+
+function getLabel(s: number | null) {
+  if (s === null) return { text: 'Ej analyserad', cls: 'bg-gray-100 text-gray-500' };
+  if (s < 0.2) return { text: 'Konsekvent', cls: 'bg-green-100 text-green-700' };
+  if (s < 0.4) return { text: 'Viss avvikelse', cls: 'bg-yellow-100 text-yellow-700' };
+  if (s < 0.6) return { text: 'Avviker', cls: 'bg-orange-100 text-orange-700' };
+  return { text: 'Starkt avvikande', cls: 'bg-red-100 text-red-700' };
+}
+
+const badge = getLabel(score);
+const meaningfulFlags = flags.filter(f => !['high_deviation', 'moderate_deviation'].includes(f));
+---
+
+<div>
+  <span class={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full ${badge.cls}`}>
+    <span class="w-1.5 h-1.5 rounded-full bg-current opacity-60"></span>
+    {badge.text}
+    {score !== null && <span class="opacity-60">({(score * 100).toFixed(0)}%)</span>}
+  </span>
+
+  {meaningfulFlags.length > 0 && (
+    <ul class="mt-2 space-y-0.5">
+      {meaningfulFlags.map(f => (
+        <li class="text-xs text-gray-500 flex items-start gap-1.5">
+          <span class="text-gray-400 mt-0.5">↳</span>
+          {FLAG_LABELS[f] ?? f}
+        </li>
+      ))}
+    </ul>
+  )}
+</div>

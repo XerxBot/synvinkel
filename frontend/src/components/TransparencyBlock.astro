@@ -1,0 +1,80 @@
+---
+/**
+ * TransparencyBlock — visar avsändarens politiska profil bredvid en artikel.
+ * Kärnan i Synvinkels transparensuppdrag.
+ */
+import type { Organization } from '../lib/api';
+import { leaningToPosition, LEANING_LABELS, TYPE_LABELS } from '../lib/api';
+import BiasBar from './BiasBar.astro';
+import DeviationBadge from './DeviationBadge.astro';
+
+interface Props {
+  org: Organization | null;
+  deviationScore?: number | null;
+  deviationFlags?: string[];
+}
+const { org, deviationScore = null, deviationFlags = [] } = Astro.props;
+---
+
+<aside class="bg-amber-50 border border-amber-200 rounded-xl p-5 space-y-4">
+  <div class="flex items-center gap-2">
+    <div class="w-5 h-5 rounded-full bg-gradient-to-br from-red-400 via-gray-200 to-blue-500 shrink-0"></div>
+    <h2 class="text-sm font-semibold text-amber-900">Transparensanalys</h2>
+  </div>
+
+  {org ? (
+    <div class="space-y-3">
+      <div>
+        <p class="text-xs text-amber-700 uppercase tracking-wide font-medium mb-0.5">Avsändare</p>
+        <a href={`/sources/${org.slug}`} class="font-semibold text-gray-900 hover:text-blue-700 transition-colors">
+          {org.name}
+        </a>
+        <span class="text-xs text-gray-500 ml-2">{TYPE_LABELS[org.type] ?? org.type}</span>
+      </div>
+
+      <div>
+        <p class="text-xs text-amber-700 uppercase tracking-wide font-medium mb-2">Politisk position</p>
+        <BiasBar position={leaningToPosition(org.political_leaning)} size="sm" />
+        <p class="text-sm text-gray-700 mt-1">
+          {LEANING_LABELS[org.political_leaning ?? 'neutral'] ?? org.political_leaning ?? 'Okänd'}
+          {org.economic_position && (
+            <span class="text-gray-400"> · ekonomiskt: {org.economic_position}</span>
+          )}
+        </p>
+      </div>
+
+      {org.primary_funder && (
+        <div>
+          <p class="text-xs text-amber-700 uppercase tracking-wide font-medium mb-0.5">Finansiering</p>
+          <p class="text-sm text-gray-700">{org.primary_funder}</p>
+        </div>
+      )}
+
+      {org.declared_ideology && (
+        <div>
+          <p class="text-xs text-amber-700 uppercase tracking-wide font-medium mb-0.5">Deklarerad ideologi</p>
+          <p class="text-sm text-gray-700 italic">"{org.declared_ideology}"</p>
+        </div>
+      )}
+
+      {(deviationScore !== null || deviationFlags.length > 0) && (
+        <div>
+          <p class="text-xs text-amber-700 uppercase tracking-wide font-medium mb-1.5">Innehållsavvikelse</p>
+          <DeviationBadge score={deviationScore} flags={deviationFlags} />
+          <p class="text-xs text-gray-500 mt-1.5">
+            Jämför artikelns ton och partibevakning mot källans förväntade profil.
+          </p>
+        </div>
+      )}
+
+      {org.classification_notes && (
+        <details class="text-xs">
+          <summary class="text-amber-700 cursor-pointer hover:text-amber-900">Klassificeringsnot</summary>
+          <p class="mt-1 text-gray-600 leading-relaxed">{org.classification_notes}</p>
+        </details>
+      )}
+    </div>
+  ) : (
+    <p class="text-sm text-gray-500">Källan är inte klassificerad i Synvinkels databas.</p>
+  )}
+</aside>

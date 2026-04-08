@@ -1,0 +1,41 @@
+---
+import type { Organization } from '../lib/api';
+import { leaningToPosition, LEANING_LABELS, TYPE_LABELS } from '../lib/api';
+import BiasBar from './BiasBar.astro';
+
+interface Props { org: Organization; }
+const { org } = Astro.props;
+const pos = leaningToPosition(org.political_leaning);
+---
+
+<a href={`/sources/${org.slug}`}
+   class="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-gray-300 transition-all group">
+  <div class="flex justify-between items-start mb-3">
+    <div>
+      <h3 class="font-semibold text-gray-900 group-hover:text-blue-700 transition-colors">{org.name}</h3>
+      <span class="text-xs text-gray-500">{TYPE_LABELS[org.type] ?? org.type}</span>
+    </div>
+    {org.founded_year && (
+      <span class="text-xs text-gray-400">est. {org.founded_year}</span>
+    )}
+  </div>
+
+  {org.description && (
+    <p class="text-sm text-gray-600 mb-4 line-clamp-2">{org.description}</p>
+  )}
+
+  <BiasBar position={pos} size="sm" />
+
+  <div class="mt-3 flex flex-wrap gap-2">
+    {org.political_leaning && (
+      <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
+        {LEANING_LABELS[org.political_leaning] ?? org.political_leaning}
+      </span>
+    )}
+    {org.funding_category && (
+      <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
+        {org.funding_category.replace(/_/g, ' ')}
+      </span>
+    )}
+  </div>
+</a>

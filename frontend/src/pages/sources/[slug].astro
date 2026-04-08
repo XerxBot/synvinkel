@@ -1,0 +1,142 @@
+---
+import Base from '../../layouts/Base.astro';
+import BiasBar from '../../components/BiasBar.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import {
+  fetchSource, fetchArticlesBySource,
+  leaningToPosition, LEANING_LABELS, TYPE_LABELS,
+} from '../../lib/api';
+
+const { slug } = Astro.params;
+if (!slug) return Astro.redirect('/sources');
+
+let org, articles;
+try {
+  [org, articles] = await Promise.all([
+    fetchSource(slug),
+    fetchArticlesBySource(slug, 12),
+  ]);
+} catch {
+  return Astro.redirect('/sources');
+}
+
+const pos = leaningToPosition(org.political_leaning);
+---
+<Base title={org.name} description={org.description ?? undefined}>
+  <div class="max-w-5xl mx-auto px-4 py-10">
+
+    <div class="mb-6">
+      <a href="/sources" class="text-sm text-blue-600 hover:underline">← Alla källor</a>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+
+      <!-- Profile sidebar -->
+      <aside class="lg:col-span-1 space-y-6">
+        <div class="bg-white border border-gray-200 rounded-2xl p-6 space-y-5">
+          <div>
+            <h1 class="text-2xl font-bold text-gray-900 mb-1">{org.name}</h1>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
+                {TYPE_LABELS[org.type] ?? org.type}
+              </span>
+              {org.founded_year && (
+                <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
+                  Grundad {org.founded_year}
+                </span>
+              )}
+              <span class={`text-xs px-2 py-0.5 rounded-full ${org.classification_confidence === 'high' ? 'bg-green-100 text-green-700' : org.classification_confidence === 'medium' ? 'bg-yellow-100 text-yellow-700' : 'bg-gray-100 text-gray-500'}`}>
+                {org.classification_confidence} konfidensgrad
+              </span>
+            </div>
+          </div>
+
+          {org.description && (
+            <p class="text-sm text-gray-600 leading-relaxed">{org.description}</p>
+          )}
+
+          <div>
+            <p class="text-xs uppercase tracking-wide text-gray-400 mb-2">Politisk position</p>
+            <BiasBar position={pos} />
+            <p class="text-sm text-gray-700 mt-2 font-medium">
+              {LEANING_LABELS[org.political_leaning ?? 'neutral'] ?? org.political_leaning}
+            </p>
+            {org.gal_tan_position && (
+              <p class="text-xs text-gray-500 mt-1">GAL-TAN: {org.gal_tan_position}</p>
+            )}
+            {org.economic_position && (
+              <p class="text-xs text-gray-500">Ekonomi: {org.economic_position}</p>
+            )}
+          </div>
+
+          {org.declared_ideology && (
+            <div>
+              <p class="text-xs uppercase tracking-wide text-gray-400 mb-1">Deklarerad ideologi</p>
+              <p class="text-sm text-gray-700 italic">"{org.declared_ideology}"</p>
+            </div>
+          )}
+
+          {org.primary_funder && (
+            <div>
+              <p class="text-xs uppercase tracking-wide text-gray-400 mb-1">Finansiering</p>
+              <p class="text-sm text-gray-700">{org.primary_funder}</p>
+              {org.funding_category && (
+                <p class="text-xs text-gray-500">{org.funding_category.replace(/_/g, ' ')}</p>
+              )}
+            </div>
+          )}
+
+          {org.website && (
+            <a href={org.website} target="_blank" rel="noopener noreferrer"
+               class="text-sm text-blue-600 hover:underline block">
+              {org.website.replace(/^https?:\/\//, '')} →
+            </a>
+          )}
+
+          {org.domains && org.domains.length > 0 && (
+            <div>
+              <p class="text-xs uppercase tracking-wide text-gray-400 mb-1">Kopplade domäner</p>
+              <div class="flex flex-wrap gap-1">
+                {org.domains.map(d => (
+                  <span class="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded">{d}</span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {org.classification_notes && (
+            <details class="text-xs">
+              <summary class="text-gray-500 cursor-pointer hover:text-gray-700 font-medium">
+                Klassificeringsnot
+              </summary>
+              <p class="mt-2 text-gray-600 leading-relaxed">{org.classification_notes}</p>
+            </details>
+          )}
+        </div>
+      </aside>
+
+      <!-- Articles -->
+      <main class="lg:col-span-2">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">
+          Senaste artiklar
+          {articles.length > 0 && (
+            <span class="text-sm font-normal text-gray-400 ml-1">({articles.length})</span>
+          )}
+        </h2>
+        {articles.length > 0 ? (
+          <div class="space-y-3">
+            {articles.map(a => <ArticleCard article={a} showSource={false} />)}
+          </div>
+        ) : (
+          <div class="bg-white border border-gray-200 rounded-xl p-8 text-center text-gray-400">
+            <p>Inga artiklar scrapad ännu för denna källa.</p>
+            <a href="/admin" class="text-sm text-blue-600 hover:underline mt-2 block">
+              Trigga scraping i Admin →
+            </a>
+          </div>
+        )}
+      </main>
+
+    </div>
+  </div>
+</Base>
