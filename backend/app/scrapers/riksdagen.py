@@ -22,7 +22,9 @@ class RiksdagenScraper(BaseScraper):
             url = f"{RIKSDAGEN_API}/anforandelista/?anftyp=Nej&utformat=json&antal={limit}&sort=d"
             resp = await self._get(url)
             data = resp.json()
-            anforanden = data.get("anforandelista", {}).get("anforande", [])
+            raw = data.get("anforandelista", {}).get("anforande", [])
+            # API returns a dict (not list) when only one result
+            anforanden = raw if isinstance(raw, list) else ([raw] if raw else [])
 
             for a in anforanden[:limit]:
                 anf_id = a.get("anforande_id", "")
@@ -55,7 +57,8 @@ class RiksdagenScraper(BaseScraper):
             url = f"{RIKSDAGEN_API}/dokumentlista/?doktyp=mot&rm={session}&utformat=json&antal={limit}&sort=d"
             resp = await self._get(url)
             data = resp.json()
-            dokument = data.get("dokumentlista", {}).get("dokument", [])
+            raw = data.get("dokumentlista", {}).get("dokument", [])
+            dokument = raw if isinstance(raw, list) else ([raw] if raw else [])
 
             for d in dokument[:limit]:
                 dok_url = d.get("dokumentstatus_url_xml", "").replace("_status.xml", "")
