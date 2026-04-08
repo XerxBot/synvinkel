@@ -28,8 +28,21 @@ class ArticleResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class AnalysisSummary(BaseModel):
+    """Inbäddad analys i ArticleDetail."""
+    source_political_leaning: Optional[str] = None
+    source_funding_category: Optional[str] = None
+    source_type: Optional[str] = None
+    confidence_score: Optional[float] = None
+    confidence_explanation: Optional[str] = None
+    coverage_spectrum: Optional[dict] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
 class ArticleDetail(ArticleResponse):
     """Full article with text — used for single-article endpoints."""
     full_text: Optional[str] = None
     mentioned_persons: Optional[list[str]] = None
     mentioned_orgs: Optional[list[str]] = None
+    analysis: Optional[AnalysisSummary] = None

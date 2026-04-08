@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import { fetchTopics } from '../../lib/api';
+
+const topics = await fetchTopics().catch(() => []);
+---
+<Base title="Ämnen" description="13 politiska ämnesområden med källanalys.">
+  <div class="max-w-5xl mx-auto px-4 py-10">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Ämnen</h1>
+      <p class="text-gray-500">
+        Välj ett ämne för att se hur olika politiska källor bevakar det.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {topics.map(topic => (
+        <a href={`/topics/${topic.slug}`}
+           class="block bg-white border border-gray-200 rounded-xl p-5 hover:shadow-md hover:border-gray-300 transition-all group">
+          <h2 class="font-semibold text-gray-900 group-hover:text-blue-700 transition-colors capitalize mb-2">
+            {topic.name}
+          </h2>
+          {topic.description && (
+            <p class="text-sm text-gray-500 line-clamp-2">{topic.description}</p>
+          )}
+          <span class="text-xs text-blue-500 mt-3 block">Se täckning →</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</Base>

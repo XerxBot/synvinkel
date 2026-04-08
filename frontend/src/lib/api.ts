@@ -57,6 +57,45 @@ export interface Article {
   created_at: string;
 }
 
+export interface AnalysisSummary {
+  source_political_leaning: string | null;
+  source_funding_category: string | null;
+  source_type: string | null;
+  confidence_score: number | null;   // deviation_score 0–1
+  confidence_explanation: string | null;
+  coverage_spectrum: {
+    deviation_score: number;
+    sentiment_alignment: number;
+    party_alignment: number;
+    flags: string[];
+    version: string;
+  } | null;
+}
+
+export interface ArticleDetail extends Article {
+  full_text: string | null;
+  mentioned_persons: string[] | null;
+  mentioned_orgs: string[] | null;
+  analysis: AnalysisSummary | null;
+}
+
+export interface TopicCoverage {
+  topic: { slug: string; name: string; description: string | null };
+  stats: { total_articles: number; avg_sentiment: number | null; sources_count: number };
+  source_distribution: { slug: string; name: string; count: number; political_leaning: string | null; type: string | null }[];
+  top_parties: { party: string; count: number }[];
+  recent_articles: { id: string; title: string; url: string | null; data_source: string | null; published_at: string | null; sentiment_score: number | null; article_type: string | null }[];
+}
+
+export interface Perspective {
+  leaning: string;
+  id: string;
+  title: string;
+  data_source: string | null;
+  published_at: string | null;
+  sentiment_score: number | null;
+}
+
 export interface ExportResponse {
   meta: {
     total_returned: number;
@@ -104,10 +143,29 @@ export async function fetchSource(slug: string): Promise<OrganizationProfile> {
   return res.json();
 }
 
-export async function fetchArticle(id: string): Promise<Article> {
+export async function fetchArticle(id: string): Promise<ArticleDetail> {
   const res = await fetch(`${SERVER_BASE}/articles/${id}`);
   if (!res.ok) throw new Error(`article/${id}: ${res.status}`);
   return res.json();
+}
+
+export async function fetchTopics(): Promise<{ id: string; name: string; slug: string; description: string | null }[]> {
+  const res = await fetch(`${SERVER_BASE}/topics`);
+  if (!res.ok) return [];
+  return res.json();
+}
+
+export async function fetchTopicCoverage(slug: string, limit = 20): Promise<TopicCoverage> {
+  const res = await fetch(`${SERVER_BASE}/topics/${slug}/coverage?limit=${limit}`);
+  if (!res.ok) throw new Error(`topics/${slug}/coverage: ${res.status}`);
+  return res.json();
+}
+
+export async function fetchPerspectives(topicSlug: string): Promise<Perspective[]> {
+  const res = await fetch(`${SERVER_BASE}/topics/${topicSlug}/perspectives`);
+  if (!res.ok) return [];
+  const data = await res.json();
+  return data.perspectives ?? [];
 }
 
 export async function fetchArticlesBySource(slug: string, limit = 10): Promise<Article[]> {

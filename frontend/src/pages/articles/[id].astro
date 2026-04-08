@@ -1,7 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import TransparencyBlock from '../../components/TransparencyBlock.astro';
-import { fetchArticle, fetchSource, formatDate, formatSentiment } from '../../lib/api';
+import PerspectivesBlock from '../../components/PerspectivesBlock.astro';
+import { fetchArticle, fetchSource, fetchPerspectives, formatDate, formatSentiment } from '../../lib/api';
 
 const { id } = Astro.params;
 if (!id) return Astro.redirect('/');
@@ -13,11 +14,15 @@ try {
   return Astro.redirect('/');
 }
 
-// Hämta källprofil om möjligt
-let org = null;
-if (article.data_source) {
-  org = await fetchSource(article.data_source).catch(() => null);
-}
+// Hämta källprofil + perspektiv parallellt
+const [org, allPerspectives] = await Promise.all([
+  article.data_source ? fetchSource(article.data_source).catch(() => null) : Promise.resolve(null),
+  article.topics?.length
+    ? fetchPerspectives(article.topics[0]).catch(() => [])
+    : Promise.resolve([]),
+]);
+// Filtrera bort denna artikel från perspektiven
+const perspectives = allPerspectives.filter(p => p.id !== id);
 
 const sentimentLabel = formatSentiment(article.sentiment_score);
 const sentimentColor = article.sentiment_score === null ? 'text-gray-400'
@@ -131,9 +136,23 @@ const sentimentColor = article.sentiment_score === null ? 'text-gray-400'
         </div>
       </article>
 
-      <!-- Sidebar: Transparency -->
+      <!-- Sidebar: Transparency + Perspectives -->
       <aside class="lg:col-span-1 space-y-4">
-        <TransparencyBlock org={org} />
+        <TransparencyBlock
+          org={org}
+          deviationScore={article.analysis?.coverage_spectrum?.deviation_score ?? null}
+          deviationFlags={article.analysis?.coverage_spectrum?.flags ?? []}
+        />
+
+        {perspectives.length > 0 && article.topics?.[0] && (
+          <div class="bg-white border border-gray-200 rounded-xl p-5">
+            <PerspectivesBlock
+              perspectives={perspectives.slice(0, 4)}
+              topicSlug={article.topics[0]}
+              topicName={article.topics[0]}
+            />
+          </div>
+        )}
 
         <div class="bg-white border border-gray-200 rounded-xl p-4 text-xs text-gray-400 space-y-1">
           <p class="font-medium text-gray-500">Teknisk info</p>

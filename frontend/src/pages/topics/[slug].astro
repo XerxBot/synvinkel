@@ -1,0 +1,191 @@
+---
+import Base from '../../layouts/Base.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { fetchTopicCoverage, fetchPerspectives, leaningToPosition, LEANING_LABELS, formatDate } from '../../lib/api';
+
+const { slug } = Astro.params;
+if (!slug) return Astro.redirect('/topics');
+
+let coverage, perspectives;
+try {
+  [coverage, perspectives] = await Promise.all([
+    fetchTopicCoverage(slug, 20),
+    fetchPerspectives(slug),
+  ]);
+} catch {
+  return Astro.redirect('/topics');
+}
+
+const { topic, stats, source_distribution, top_parties, recent_articles } = coverage;
+
+function sentimentColor(s: number | null): string {
+  if (s === null) return 'bg-gray-100 text-gray-500';
+  if (s > 0.3) return 'bg-green-100 text-green-700';
+  if (s < -0.3) return 'bg-red-100 text-red-700';
+  return 'bg-gray-100 text-gray-600';
+}
+
+function leaningBg(leaning: string | null): string {
+  if (!leaning) return 'bg-gray-100';
+  const pos = leaningToPosition(leaning);
+  if (pos <= 25) return 'bg-red-100';
+  if (pos <= 45) return 'bg-rose-50';
+  if (pos <= 55) return 'bg-gray-100';
+  if (pos <= 70) return 'bg-blue-50';
+  return 'bg-blue-100';
+}
+---
+<Base title={`${topic.name} — ämnesöversikt`}>
+  <div class="max-w-5xl mx-auto px-4 py-10">
+
+    <div class="mb-6">
+      <a href="/topics" class="text-sm text-blue-600 hover:underline">← Alla ämnen</a>
+    </div>
+
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 capitalize mb-2">{topic.name}</h1>
+      {topic.description && <p class="text-gray-500">{topic.description}</p>}
+    </div>
+
+    <!-- Stats row -->
+    <div class="grid grid-cols-3 gap-4 mb-8">
+      {[
+        { label: 'Artiklar totalt', value: stats.total_articles.toLocaleString('sv-SE') },
+        { label: 'Aktiva källor', value: stats.sources_count },
+        { label: 'Genomsnittssentiment', value: stats.avg_sentiment !== null ? stats.avg_sentiment.toFixed(2) : '–' },
+      ].map(s => (
+        <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+          <p class="text-2xl font-bold text-gray-900">{s.value}</p>
+          <p class="text-xs text-gray-500 mt-0.5">{s.label}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+
+      <!-- Left: Source distribution + Parties -->
+      <aside class="lg:col-span-1 space-y-6">
+
+        <!-- Source distribution -->
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <h2 class="font-semibold text-gray-900 mb-4">Källfördelning</h2>
+          {source_distribution.length > 0 ? (
+            <div class="space-y-2">
+              {source_distribution.map(src => (
+                <a href={`/sources/${src.slug}`}
+                   class={`flex items-center justify-between p-2 rounded-lg hover:opacity-80 transition-opacity ${leaningBg(src.political_leaning)}`}>
+                  <div>
+                    <span class="text-sm font-medium text-gray-800">{src.name}</span>
+                    {src.political_leaning && (
+                      <span class="text-xs text-gray-500 ml-1.5">
+                        {LEANING_LABELS[src.political_leaning] ?? src.political_leaning}
+                      </span>
+                    )}
+                  </div>
+                  <span class="text-sm font-bold text-gray-700">{src.count}</span>
+                </a>
+              ))}
+            </div>
+          ) : (
+            <p class="text-sm text-gray-400">Ingen data ännu.</p>
+          )}
+        </div>
+
+        <!-- Top parties -->
+        {top_parties.length > 0 && (
+          <div class="bg-white border border-gray-200 rounded-xl p-5">
+            <h2 class="font-semibold text-gray-900 mb-4">Mest nämnda partier</h2>
+            <div class="space-y-2">
+              {top_parties.map(p => (
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-700 capitalize">{p.party}</span>
+                  <span class="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full">{p.count}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+      </aside>
+
+      <!-- Right: Perspectives + Articles -->
+      <main class="lg:col-span-2 space-y-8">
+
+        <!-- Perspectives -->
+        {perspectives.length > 0 && (
+          <div class="bg-white border border-gray-200 rounded-xl p-5">
+            <h2 class="font-semibold text-gray-900 mb-1">Samma ämne, andra perspektiv</h2>
+            <p class="text-sm text-gray-500 mb-4">Ett artikel per politisk lutning.</p>
+            <div class="space-y-2">
+              {perspectives.map(p => {
+                const pos = leaningToPosition(p.leaning);
+                const borderCls = pos <= 25 ? 'border-l-red-400'
+                  : pos <= 45 ? 'border-l-rose-300'
+                  : pos <= 55 ? 'border-l-gray-300'
+                  : pos <= 70 ? 'border-l-blue-300'
+                  : 'border-l-blue-500';
+                const bgCls = pos <= 45 ? 'bg-red-50' : pos <= 55 ? 'bg-gray-50' : 'bg-blue-50';
+                return (
+                  <a href={`/articles/${p.id}`}
+                     class={`flex items-start gap-3 p-3 rounded-lg border-l-4 hover:shadow-sm transition-all ${borderCls} ${bgCls}`}>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-sm font-medium text-gray-900 line-clamp-2">{p.title}</p>
+                      <div class="flex gap-2 mt-1 text-xs text-gray-400">
+                        {p.data_source && <span class="text-blue-500">{p.data_source}</span>}
+                        <span>{formatDate(p.published_at)}</span>
+                      </div>
+                    </div>
+                    <span class="shrink-0 text-xs text-gray-500 whitespace-nowrap">
+                      {LEANING_LABELS[p.leaning] ?? p.leaning}
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        <!-- Recent articles -->
+        <div>
+          <h2 class="font-semibold text-gray-900 mb-4">
+            Senaste artiklar
+            <span class="font-normal text-gray-400 text-sm ml-1">({recent_articles.length})</span>
+          </h2>
+          {recent_articles.length > 0 ? (
+            <div class="space-y-3">
+              {recent_articles.map(a => (
+                <a href={`/articles/${a.id}`}
+                   class="flex items-start justify-between gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:shadow-md hover:border-gray-300 transition-all group">
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 group-hover:text-blue-700 transition-colors line-clamp-2">
+                      {a.title}
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-1 text-xs text-gray-400">
+                      {a.data_source && <span class="text-blue-500">{a.data_source}</span>}
+                      <span>{formatDate(a.published_at)}</span>
+                      {a.article_type && <span class="capitalize">{a.article_type.replace(/_/g, ' ')}</span>}
+                    </div>
+                  </div>
+                  {a.sentiment_score !== null && (
+                    <span class={`shrink-0 text-xs px-2 py-0.5 rounded-full ${sentimentColor(a.sentiment_score)}`}>
+                      {a.sentiment_score > 0.3 ? 'Positiv' : a.sentiment_score < -0.3 ? 'Negativ' : 'Neutral'}
+                    </span>
+                  )}
+                </a>
+              ))}
+            </div>
+          ) : (
+            <div class="bg-white border border-gray-200 rounded-xl p-8 text-center text-gray-400">
+              <p>Inga artiklar om {topic.name} ännu.</p>
+              <a href="/admin" class="text-sm text-blue-600 hover:underline mt-2 block">
+                Scrapa in data via Admin →
+              </a>
+            </div>
+          )}
+        </div>
+
+      </main>
+    </div>
+  </div>
+</Base>

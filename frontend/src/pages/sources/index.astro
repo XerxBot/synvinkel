@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import SourceCard from '../../components/SourceCard.astro';
+import PoliticalMap from '../../components/PoliticalMap';
 import { fetchSources, LEANING_LABELS } from '../../lib/api';
 
 const sources = await fetchSources().catch(() => []);
@@ -31,9 +32,18 @@ const TYPE_LABELS: Record<string, string> = {
   <div class="max-w-6xl mx-auto px-4 py-10">
     <div class="mb-8">
       <h1 class="text-3xl font-bold text-gray-900 mb-2">Källor</h1>
-      <p class="text-gray-500">
+      <p class="text-gray-500 mb-8">
         {sources.length} klassificerade organisationer — ideologi, finansiering och politisk position.
       </p>
+
+      <!-- Political map -->
+      <div class="bg-white border border-gray-200 rounded-2xl p-6 mb-10">
+        <h2 class="font-semibold text-gray-900 mb-1">Politisk karta</h2>
+        <p class="text-sm text-gray-500 mb-4">
+          Vänster–höger (X) × GAL–TAN (Y). Klicka på en bubbla för att gå till källprofilen.
+        </p>
+        <PoliticalMap orgs={sources} client:load />
+      </div>
     </div>
 
     {sortedGroups.map(({ type, orgs }) => (

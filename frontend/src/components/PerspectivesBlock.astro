@@ -1,0 +1,53 @@
+---
+/**
+ * PerspectivesBlock — "Samma ämne, andra perspektiv".
+ * Visar ett artikel per politisk lutning för ett givet ämne.
+ */
+import type { Perspective } from '../lib/api';
+import { formatDate, leaningToPosition, LEANING_LABELS } from '../lib/api';
+
+interface Props {
+  perspectives: Perspective[];
+  topicSlug: string;
+  topicName: string;
+}
+const { perspectives, topicSlug, topicName } = Astro.props;
+
+if (perspectives.length === 0) return;
+
+function leaningBg(leaning: string): string {
+  const pos = leaningToPosition(leaning);
+  if (pos <= 25) return 'border-l-red-400 bg-red-50';
+  if (pos <= 45) return 'border-l-rose-300 bg-rose-50';
+  if (pos <= 55) return 'border-l-gray-300 bg-gray-50';
+  if (pos <= 70) return 'border-l-blue-300 bg-blue-50';
+  return 'border-l-blue-500 bg-blue-50';
+}
+---
+
+<section>
+  <h2 class="text-lg font-semibold text-gray-900 mb-1">Samma ämne, andra perspektiv</h2>
+  <p class="text-sm text-gray-500 mb-4">
+    Hur bevakar olika delar av det politiska spektrumet <em>{topicName}</em>?
+  </p>
+  <div class="space-y-2">
+    {perspectives.map(p => (
+      <a href={`/articles/${p.id}`}
+         class={`flex items-start gap-3 p-3 rounded-lg border-l-4 transition-all hover:shadow-sm ${leaningBg(p.leaning)}`}>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-gray-900 line-clamp-2 leading-snug">{p.title}</p>
+          <div class="flex items-center gap-2 mt-1 text-xs text-gray-400">
+            {p.data_source && <span class="text-blue-500">{p.data_source}</span>}
+            <span>{formatDate(p.published_at)}</span>
+          </div>
+        </div>
+        <span class="shrink-0 text-xs text-gray-400 whitespace-nowrap">
+          {LEANING_LABELS[p.leaning] ?? p.leaning}
+        </span>
+      </a>
+    ))}
+  </div>
+  <a href={`/topics/${topicSlug}`} class="text-xs text-blue-600 hover:underline mt-3 block">
+    Se alla artiklar om {topicName} →
+  </a>
+</section>
