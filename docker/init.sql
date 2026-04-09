@@ -185,5 +185,19 @@ CREATE INDEX idx_source_orgs_leaning ON source_organizations(political_leaning);
 CREATE INDEX idx_source_persons_org ON source_persons(organization_id);
 CREATE INDEX idx_scrape_jobs_status ON scrape_jobs(status);
 
+CREATE TABLE fact_checks (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    article_id      UUID REFERENCES articles(id) ON DELETE CASCADE NOT NULL UNIQUE,
+    triggered_by    UUID REFERENCES users(id),
+    model_used      TEXT NOT NULL,
+    claims          JSONB,
+    sourcing_score  FLOAT,
+    framing_notes   TEXT,
+    bias_indicators TEXT[],
+    vs_source_profile TEXT,
+    summary         TEXT,
+    created_at      TIMESTAMPTZ DEFAULT NOW()
+);
+
 -- Admin user
 INSERT INTO users (email, display_name, role) VALUES ('xerxes@analytech.se', 'Xerxes', 'admin');

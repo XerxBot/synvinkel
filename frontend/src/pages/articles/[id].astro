@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import TransparencyBlock from '../../components/TransparencyBlock.astro';
 import PerspectivesBlock from '../../components/PerspectivesBlock.astro';
 import NotesSection from '../../components/NotesSection';
+import FactCheckBlock from '../../components/FactCheckBlock';
 import { fetchArticle, fetchSource, fetchPerspectives, formatDate, formatSentiment, CLIENT_BASE } from '../../lib/api';
 
 const { id } = Astro.params;
@@ -106,6 +107,9 @@ const sentimentColor = article.sentiment_score === null ? 'text-gray-400'
           ) : (
             <p class="text-gray-400 italic">Fulltext ej tillgänglig — se källartikeln.</p>
           )}
+
+          <!-- Faktakontroll -->
+          <FactCheckBlock apiBase={CLIENT_BASE} articleId={id} client:load />
 
           <!-- Community Notes -->
           <NotesSection apiBase={CLIENT_BASE} articleId={id} client:load />
