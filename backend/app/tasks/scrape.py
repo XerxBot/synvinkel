@@ -22,6 +22,7 @@ SCRAPER_REGISTRY: dict[str, str] = {
     "riksdagen":          "app.scrapers.riksdagen:RiksdagenScraper",
     "riksdagen-motioner": "app.scrapers.riksdagen:RiksdagenScraper",
     "svt-nyheter":           "app.scrapers.svt:SVTScraper",
+    "svt-texttv":            "app.scrapers.svt_texttv:SVTTextTVScraper",
     "sr-ekot":               "app.scrapers.sr:SRScraper",
     "reddit-svenska":        "app.scrapers.reddit:RedditScraper",
     "nmi":                   "app.scrapers.nmi:NMIScraper",

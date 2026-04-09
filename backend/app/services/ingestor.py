@@ -31,13 +31,25 @@ class ArticleIngestor:
         return await self.db.scalar(select(Article.id).where(Article.url == url)) is not None
 
     async def _fetch_full_text(self, url: str) -> Optional[str]:
-        """Hämtar fulltext via trafilatura (synkront, körs i executor)."""
+        """Hämtar och extraherar fulltext via trafilatura (körs i executor)."""
         try:
             import trafilatura
+
+            def _download_and_extract() -> Optional[str]:
+                html = trafilatura.fetch_url(url)
+                if not html:
+                    return None
+                return trafilatura.extract(
+                    html,
+                    include_comments=False,
+                    include_tables=False,
+                    favor_precision=True,
+                )
+
             loop = asyncio.get_event_loop()
             result = await asyncio.wait_for(
-                loop.run_in_executor(None, trafilatura.fetch_url, url),
-                timeout=10.0,
+                loop.run_in_executor(None, _download_and_extract),
+                timeout=15.0,
             )
             return result or None
         except Exception as e:
