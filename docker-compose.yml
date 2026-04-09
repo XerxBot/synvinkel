@@ -37,6 +37,8 @@ services:
       SECRET_KEY: dev-secret-change-in-production
       ADMIN_EMAIL: xerxes@analytech.se
       ENVIRONMENT: development
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      FACTCHECK_MODEL: ${FACTCHECK_MODEL:-claude-sonnet-4-6}
     ports:
       - "8000:8000"
     volumes:
