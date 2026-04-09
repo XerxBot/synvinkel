@@ -34,6 +34,22 @@ function leaningBg(leaning: string | null): string {
   if (pos <= 70) return 'bg-blue-50';
   return 'bg-blue-100';
 }
+
+function leaningBorder(leaning: string): string {
+  const pos = leaningToPosition(leaning);
+  if (pos <= 25) return 'border-l-red-400';
+  if (pos <= 45) return 'border-l-rose-300';
+  if (pos <= 55) return 'border-l-gray-300';
+  if (pos <= 70) return 'border-l-blue-300';
+  return 'border-l-blue-500';
+}
+
+function perspectiveBg(leaning: string): string {
+  const pos = leaningToPosition(leaning);
+  if (pos <= 45) return 'bg-red-50';
+  if (pos <= 55) return 'bg-gray-50';
+  return 'bg-blue-50';
+}
 ---
 <Base title={`${topic.name} — ämnesöversikt`}>
   <div class="max-w-5xl mx-auto px-4 py-10">
@@ -118,30 +134,21 @@ function leaningBg(leaning: string | null): string {
             <h2 class="font-semibold text-gray-900 mb-1">Samma ämne, andra perspektiv</h2>
             <p class="text-sm text-gray-500 mb-4">Ett artikel per politisk lutning.</p>
             <div class="space-y-2">
-              {perspectives.map(p => {
-                const pos = leaningToPosition(p.leaning);
-                const borderCls = pos <= 25 ? 'border-l-red-400'
-                  : pos <= 45 ? 'border-l-rose-300'
-                  : pos <= 55 ? 'border-l-gray-300'
-                  : pos <= 70 ? 'border-l-blue-300'
-                  : 'border-l-blue-500';
-                const bgCls = pos <= 45 ? 'bg-red-50' : pos <= 55 ? 'bg-gray-50' : 'bg-blue-50';
-                return (
-                  <a href={`/articles/${p.id}`}
-                     class={`flex items-start gap-3 p-3 rounded-lg border-l-4 hover:shadow-sm transition-all ${borderCls} ${bgCls}`}>
-                    <div class="flex-1 min-w-0">
-                      <p class="text-sm font-medium text-gray-900 line-clamp-2">{p.title}</p>
-                      <div class="flex gap-2 mt-1 text-xs text-gray-400">
-                        {p.data_source && <span class="text-blue-500">{p.data_source}</span>}
-                        <span>{formatDate(p.published_at)}</span>
-                      </div>
+              {perspectives.map(p => (
+                <a href={`/articles/${p.id}`}
+                   class={`flex items-start gap-3 p-3 rounded-lg border-l-4 hover:shadow-sm transition-all ${leaningBorder(p.leaning)} ${perspectiveBg(p.leaning)}`}>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 line-clamp-2">{p.title}</p>
+                    <div class="flex gap-2 mt-1 text-xs text-gray-400">
+                      {p.data_source && <span class="text-blue-500">{p.data_source}</span>}
+                      <span>{formatDate(p.published_at)}</span>
                     </div>
-                    <span class="shrink-0 text-xs text-gray-500 whitespace-nowrap">
-                      {LEANING_LABELS[p.leaning] ?? p.leaning}
-                    </span>
-                  </a>
-                );
-              })}
+                  </div>
+                  <span class="shrink-0 text-xs text-gray-500 whitespace-nowrap">
+                    {LEANING_LABELS[p.leaning] ?? p.leaning}
+                  </span>
+                </a>
+              ))}
             </div>
           </div>
         )}

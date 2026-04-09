@@ -31,8 +31,12 @@ app = FastAPI(
 if settings.ENVIRONMENT == "production":
     app.add_middleware(RateLimitMiddleware, default_rpm=60, auth_rpm=10)
 
-# CORS — läs från settings (kommaseparerad lista)
-origins = [o.strip() for o in settings.ALLOWED_ORIGINS.split(",") if o.strip()]
+# CORS — wildcard i dev (Starlette echoes origin when credentials=True),
+# explicit lista i produktion
+if settings.ENVIRONMENT == "production":
+    origins = [o.strip() for o in settings.ALLOWED_ORIGINS.split(",") if o.strip()]
+else:
+    origins = ["*"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
