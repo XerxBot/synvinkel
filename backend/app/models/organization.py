@@ -57,6 +57,8 @@ class SourcePerson(Base):
     is_politician: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
     is_researcher: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
     party_affiliation: Mapped[Optional[str]] = mapped_column(Text)
+    # Publicistisk roll
+    writing_section: Mapped[Optional[str]] = mapped_column(Text)  # ledare|krönika|nyheter|kultur|politik|tankesmedja|forskning|fack|sociala_medier|internationell
     # Politisk profil
     political_leaning: Mapped[Optional[str]] = mapped_column(Text)
     gal_tan_position: Mapped[Optional[str]] = mapped_column(Text)

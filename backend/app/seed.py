@@ -12,6 +12,7 @@ import logging
 from pathlib import Path
 
 from sqlalchemy import select, text
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from app.config import settings
@@ -62,38 +63,53 @@ async def seed_topics(session: AsyncSession) -> int:
     return created
 
 
-async def seed_persons(session: AsyncSession) -> int:
+async def seed_persons(session: AsyncSession) -> tuple[int, int]:
+    """Upsert-baserad seed — skapar nya och uppdaterar befintliga."""
     from app.models.organization import SourceOrganization, SourcePerson
 
     path = SEED_DIR / "persons.json"
     persons = json.loads(path.read_text(encoding="utf-8"))
-    created = 0
-    skipped = 0
 
-    # Bygg upp org_slug → id-mappning
+    # Bygg org_slug → id-mappning
     org_rows = (await session.execute(select(SourceOrganization))).scalars().all()
     org_map = {org.slug: org.id for org in org_rows}
 
-    for p in persons:
-        existing = await session.scalar(
-            select(SourcePerson).where(SourcePerson.slug == p["slug"])
-        )
-        if existing:
-            skipped += 1
-            continue
+    created = 0
+    updated = 0
 
-        # Slå upp org_id från slug
+    for p in persons:
         org_slug = p.pop("org_slug", None)
         org_id = org_map.get(org_slug) if org_slug else None
         if org_slug and not org_id:
             logger.warning(f"  Okänd org_slug '{org_slug}' för {p['name']} — hoppar över org-länk")
 
-        person = SourcePerson(organization_id=org_id, **p)
-        session.add(person)
-        created += 1
+        values = {**p, "organization_id": org_id}
+
+        # Kontrollera om personen finns (för loggning)
+        existing = await session.scalar(
+            select(SourcePerson).where(SourcePerson.slug == p["slug"])
+        )
+
+        # Upsert: INSERT ... ON CONFLICT (slug) DO UPDATE
+        stmt = pg_insert(SourcePerson).values(**values)
+        update_cols = {
+            col: stmt.excluded[col]
+            for col in values
+            if col not in ("id", "slug", "created_at")
+        }
+        stmt = stmt.on_conflict_do_update(
+            index_elements=["slug"],
+            set_=update_cols,
+        )
+        await session.execute(stmt)
+
+        if existing:
+            updated += 1
+        else:
+            created += 1
 
     await session.commit()
-    return created
+    return created, updated
 
 
 async def main():
@@ -109,8 +125,8 @@ async def main():
         topics = await seed_topics(session)
         logger.info(f"  Ämnen: {topics} nya skapade")
 
-        persons = await seed_persons(session)
-        logger.info(f"  Skribenter/personer: {persons} nya skapade")
+        created, updated = await seed_persons(session)
+        logger.info(f"  Skribenter/personer: {created} nya, {updated} uppdaterade")
 
     await engine.dispose()
     logger.info("Seed klar. Öppna http://localhost:8000/docs för att testa.")
