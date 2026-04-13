@@ -532,12 +532,12 @@
     "is_journalist": false, "is_politician": true, "is_researcher": false,
     "party_affiliation": "Centerpartiet",
     "writing_section": "politik",
-    "political_leaning": "center", "gal_tan_position": "gal", "economic_position": "center",
+    "political_leaning": "center-left", "gal_tan_position": "gal", "economic_position": "center",
     "topics_profile": ["grön liberalism", "invandring", "landsbygd", "liberalism", "EU"],
-    "classification_source": "Partiprogram 2021",
-    "classification_confidence": "high",
-    "classification_notes": "Partiledare C 2011–2023. Liberal invandringspolitik, grön agenda. Avgick 2023.",
-    "notes": null
+    "classification_source": "Partiprogram 2021 + Januariavtalet + styrningspolitik",
+    "classification_confidence": "medium",
+    "classification_notes": "Partiledare C 2011–2023. OBS komplex klassificering: ekonomisk profil är marknadsliberal (Januariavtalet drev igenom arbetsrättsreform och avreglering av hyresmarknaden — typiskt höger-reformer), men styrningspolitiskt valde hon vänsterblocket och stödde Löfven/Andersson framför att låta SD få inflytande. De flesta väljargrupper och medier placerar henne i 'vänsterblocket'. GAL-position är tydlig — stark invandringsliberalism och miljöfokus. Avgick 2023 och är nu aktiv i privat advisory/venture-sfär. Revealed position via riksdagsanföranden kan skilja sig från institutionell.",
+    "notes": "Ekonomisk liberalism + socialt GAL + vänsterblock-styrning = genuint svår att placera på en axel."
   },
   {
     "name": "Nooshi Dadgostar",
@@ -1112,5 +1112,69 @@
     "classification_confidence": "medium",
     "classification_notes": "Son till shah Mohammad Reza Pahlavi. Ledare för iransk monarkistisk opposition i exil. Förespråkar sekulär, demokratisk Iran utan islamistiskt styre. Liberal-demokratisk profil. Aktiv i att samla iransk diaspora efter Mahsa Amini-protesterna 2022. Relevant i Sverige med stor iransk diaspora — förekommer i debatter om Iran, regimkritik och iranska flyktingars situation.",
     "notes": "Bor i USA. Politisk plattform: 'Iran for all Iranians.'"
+  },
+
+  {
+    "name": "Simona Mohamsson",
+    "slug": "simona-mohamsson",
+    "title": "Riksdagsledamot, Centerpartiet",
+    "org_slug": "centerpartiet",
+    "is_journalist": false, "is_politician": true, "is_researcher": false,
+    "party_affiliation": "Centerpartiet",
+    "writing_section": "politik",
+    "political_leaning": "center", "gal_tan_position": "center-gal", "economic_position": "center",
+    "topics_profile": ["liberalism", "landsbygd", "integration", "EU", "näringsliv"],
+    "classification_source": "Partiprogram C + riksdagsanföranden",
+    "classification_confidence": "medium",
+    "classification_notes": "C-riksdagsledamot. Centerpartiet har under Demirok rört sig tillbaka mot mitten efter den vänsterallierande Lööf-perioden. Simona representerar partiets centristiska linje — varken renodlat höger eller vänster. OBS: tidigare klassificering (SD, far-right) var felaktig.",
+    "notes": "Verifiera roll och aktuella fokusområden mot riksdagens personregister."
+  },
+
+  {
+    "name": "Romina Pourmokhtari",
+    "slug": "romina-pourmokhtari",
+    "title": "Klimat- och miljöminister, Moderaterna",
+    "org_slug": "moderaterna",
+    "is_journalist": false, "is_politician": true, "is_researcher": false,
+    "party_affiliation": "Moderaterna",
+    "writing_section": "politik",
+    "political_leaning": "center-right", "gal_tan_position": "center-gal", "economic_position": "center-right",
+    "topics_profile": ["klimat", "miljö", "kärnkraft", "energipolitik", "grön omställning", "EU"],
+    "classification_source": "Partiprogram M + ministerroll + riksdagsanföranden",
+    "classification_confidence": "high",
+    "classification_notes": "Klimat- och miljöminister i Kristersson-regeringen sedan okt 2022. Född 2000 — yngsta statsrådet i Sveriges historia. Iranisk-svensk bakgrund. M:s linje: teknikneutral klimatpolitik, kärnkraftsvänlig, marknadsorienterad grön omställning. Mer GAL-orienterad än M:s mittfåra i miljöfrågor men håller partilinjen på ekonomi.",
+    "notes": "Riksdagsledamot sedan 2022. Profil: ung röst för höger-grön linje."
+  },
+
+  {
+    "name": "Anna Tenje",
+    "slug": "anna-tenje",
+    "title": "Socialförsäkringsminister, Moderaterna",
+    "org_slug": "moderaterna",
+    "is_journalist": false, "is_politician": true, "is_researcher": false,
+    "party_affiliation": "Moderaterna",
+    "writing_section": "politik",
+    "political_leaning": "center-right", "gal_tan_position": "center", "economic_position": "center-right",
+    "topics_profile": ["socialförsäkring", "sjukförsäkring", "arbetsmarknad", "välfärdsreformer", "äldreomsorg"],
+    "classification_source": "Partiprogram M + ministerroll",
+    "classification_confidence": "high",
+    "classification_notes": "Socialförsäkringsminister sedan sep 2023 (efterträdde Acko Ankarberg Johansson i portföljen). M:s linje: aktivering, arbetslinjen, begränsade sjukförsäkringsförmåner. Riksdagsledamot med bakgrund i socialpolitiska frågor. Profil i linje med M:s mittfåra.",
+    "notes": "Riksdagsledamot sedan 2018."
+  },
+
+  {
+    "name": "Carl Bildt",
+    "slug": "carl-bildt",
+    "title": "Fd statsminister och utrikesminister, Moderaterna",
+    "org_slug": "moderaterna",
+    "is_journalist": false, "is_politician": true, "is_researcher": false,
+    "party_affiliation": "Moderaterna",
+    "writing_section": "politik",
+    "political_leaning": "center-right", "gal_tan_position": "gal", "economic_position": "center-right",
+    "topics_profile": ["utrikespolitik", "EU", "NATO", "geopolitik", "Ryssland", "Ukraina", "Balkan", "liberalism"],
+    "classification_source": "Partiprogram M (historiskt) + blogg + sociala medier 2020–2025",
+    "classification_confidence": "low",
+    "classification_notes": "Statsminister 1991–1994 (M). Utrikesminister 2006–2014. EU:s höge representant för Bosnien 1995–1997. Historiskt: tydlig center-höger, marknadsliberalism och EU-federalism. VARNING — senaste åren (2020–2025) har Bildt via X/Twitter och blogg intagit positioner som i flera frågor avviker markant från traditionell höger: skarpt kritisk mot SD/nationalistisk höger, uttalar sig i linje med liberal-progressiva positioner på demokrati, invandring och transatlantisk säkerhet. GAL-TAN-profil har förskjutits mot GAL. Ekonomisk profil kvar center-right. Exemplifierar varför institutionell/historisk klassificering inte räcker — semantisk analys av faktiska uttalanden rekommenderas.",
+    "notes": "Aktiv på X/@carlbildt med stor räckvidd. Analys av hans nuvarande uttalanden ger annan bild än historisk partibok-klassificering."
   }
 ]

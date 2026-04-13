@@ -70,5 +70,13 @@ class SourcePerson(Base):
     classification_notes: Mapped[Optional[str]] = mapped_column(Text)
     linkedin_url: Mapped[Optional[str]] = mapped_column(Text)
     notes: Mapped[Optional[str]] = mapped_column(Text)
+    # Revealed position — aggregated from actual statements via Claude analysis
+    revealed_political_leaning: Mapped[Optional[str]] = mapped_column(Text)
+    revealed_gal_tan_position: Mapped[Optional[str]] = mapped_column(Text)
+    revealed_economic_position: Mapped[Optional[str]] = mapped_column(Text)
+    revealed_confidence: Mapped[Optional[float]] = mapped_column()
+    revealed_updated_at: Mapped[Optional[datetime]] = mapped_column(TIMESTAMP(timezone=True))
+    leaning_discrepancy: Mapped[Optional[str]] = mapped_column(Text)  # none|minor|moderate|significant
+    statements_count: Mapped[int] = mapped_column(server_default=text("0"))
     created_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("NOW()"))
     updated_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("NOW()"))

@@ -52,6 +52,14 @@ CREATE TABLE source_persons (
     classification_notes        TEXT,
     linkedin_url        TEXT,
     notes               TEXT,
+    -- Revealed position — aggregated from actual statements via Claude analysis
+    revealed_political_leaning  TEXT,
+    revealed_gal_tan_position   TEXT,
+    revealed_economic_position  TEXT,
+    revealed_confidence         FLOAT,
+    revealed_updated_at         TIMESTAMPTZ,
+    leaning_discrepancy         TEXT,  -- none|minor|moderate|significant
+    statements_count            INTEGER DEFAULT 0,
     created_at          TIMESTAMPTZ DEFAULT NOW(),
     updated_at          TIMESTAMPTZ DEFAULT NOW()
 );
@@ -195,6 +203,29 @@ CREATE INDEX idx_source_orgs_slug ON source_organizations(slug);
 CREATE INDEX idx_source_orgs_leaning ON source_organizations(political_leaning);
 CREATE INDEX idx_source_persons_org ON source_persons(organization_id);
 CREATE INDEX idx_scrape_jobs_status ON scrape_jobs(status);
+
+CREATE TABLE person_statements (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    person_id       UUID REFERENCES source_persons(id) ON DELETE CASCADE NOT NULL,
+    -- platform: riksdag | twitter | facebook | blog | press_release | party_web | interview | news
+    platform        TEXT NOT NULL,
+    content         TEXT NOT NULL,
+    url             TEXT,
+    title           TEXT,
+    published_at    TIMESTAMPTZ,
+    word_count      INTEGER,
+    embedding       vector(768),
+    -- Per-statement Claude analysis (populated by analyze_persons pipeline)
+    stmt_leaning    TEXT,
+    stmt_gal_tan    TEXT,
+    stmt_confidence FLOAT,
+    stmt_topics     TEXT[],
+    created_at      TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX idx_person_statements_person ON person_statements(person_id);
+CREATE INDEX idx_person_statements_platform ON person_statements(platform);
+CREATE INDEX idx_person_statements_published ON person_statements(published_at DESC);
 
 CREATE TABLE fact_checks (
     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
