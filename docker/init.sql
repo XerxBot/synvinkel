@@ -39,6 +39,15 @@ CREATE TABLE source_persons (
     is_politician       BOOLEAN DEFAULT false,
     is_researcher       BOOLEAN DEFAULT false,
     party_affiliation   TEXT,
+    -- Politisk profil
+    political_leaning           TEXT,
+    gal_tan_position            TEXT,
+    economic_position           TEXT,
+    topics_profile              TEXT[],
+    -- Klassificeringsmetadata
+    classification_source       TEXT,
+    classification_confidence   TEXT DEFAULT 'medium',
+    classification_notes        TEXT,
     linkedin_url        TEXT,
     notes               TEXT,
     created_at          TIMESTAMPTZ DEFAULT NOW(),

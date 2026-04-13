@@ -57,6 +57,15 @@ class SourcePerson(Base):
     is_politician: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
     is_researcher: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
     party_affiliation: Mapped[Optional[str]] = mapped_column(Text)
+    # Politisk profil
+    political_leaning: Mapped[Optional[str]] = mapped_column(Text)
+    gal_tan_position: Mapped[Optional[str]] = mapped_column(Text)
+    economic_position: Mapped[Optional[str]] = mapped_column(Text)
+    topics_profile: Mapped[Optional[list]] = mapped_column(ARRAY(Text))
+    # Klassificeringsmetadata
+    classification_source: Mapped[Optional[str]] = mapped_column(Text)
+    classification_confidence: Mapped[str] = mapped_column(Text, server_default=text("'medium'"))
+    classification_notes: Mapped[Optional[str]] = mapped_column(Text)
     linkedin_url: Mapped[Optional[str]] = mapped_column(Text)
     notes: Mapped[Optional[str]] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("NOW()"))
