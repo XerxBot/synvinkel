@@ -39,7 +39,7 @@ CREATE TABLE source_persons (
     is_politician       BOOLEAN DEFAULT false,
     is_researcher       BOOLEAN DEFAULT false,
     party_affiliation   TEXT,
-    -- Publicistisk roll (ledare|krönika|nyheter|kultur|politik|tankesmedja|forskning|fack|sociala_medier|internationell)
+    -- Publicistisk roll (ledare|krönika|nyheter|kultur|politik|tankesmedja|forskning|fack|sociala_medier|internationell|myndighet)
     writing_section             TEXT,
     -- Politisk profil
     political_leaning           TEXT,

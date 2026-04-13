@@ -1008,17 +1008,17 @@
   {
     "name": "Petra Lund",
     "slug": "petra-lund",
-    "title": "Politiker / offentlig person",
-    "org_slug": "moderaterna",
-    "is_journalist": false, "is_politician": true, "is_researcher": false,
-    "party_affiliation": "Moderaterna",
-    "writing_section": "politik",
-    "political_leaning": "right", "gal_tan_position": "center", "economic_position": "center-right",
-    "topics_profile": ["lokalpolitik", "regionpolitik"],
-    "classification_source": "Offentlig profil",
+    "title": "Rikspolischef, Polismyndigheten",
+    "org_slug": null,
+    "is_journalist": false, "is_politician": false, "is_researcher": false,
+    "party_affiliation": null,
+    "writing_section": "myndighet",
+    "political_leaning": null, "gal_tan_position": null, "economic_position": null,
+    "topics_profile": ["polis", "brottsbekämpning", "säkerhet", "organisation"],
+    "classification_source": null,
     "classification_confidence": "low",
-    "classification_notes": "OBS: Låg konfidens — 'Petra Lund' är inte ett entydigt känt namn i rikspolitiken. Kan avse Petra Lundh (M, riksdagsledamot) eller regional M-politiker. Verifiera korrekt person och uppdatera.",
-    "notes": "Behöver verifiering — slug och data kan vara felaktig."
+    "classification_notes": "Rikspolischef. Offentlig tjänsteman — politisk tillhörighet okänd och ej offentligt uttalad. Klassificeras ej politiskt.",
+    "notes": "Uppdatera om hon offentligt uttalar sig i politiska frågor."
   },
   {
     "name": "Mikael Claesson",
@@ -1036,21 +1036,6 @@
     "classification_confidence": "low",
     "classification_notes": "OBS: Låg konfidens — 'Mikael Claesson' är inte ett entydigt känt namn i riksdebatten. Kan avse digital strateg, IT-expert eller regional politiker. Verifiera korrekt person och uppdatera alla fält.",
     "notes": "Behöver verifiering — all data är preliminär."
-  },
-  {
-    "name": "Viktor Barktron",
-    "slug": "viktor-barktron",
-    "title": "Journalist / debattör",
-    "org_slug": "expressen",
-    "is_journalist": true, "is_politician": false, "is_researcher": false,
-    "party_affiliation": null,
-    "writing_section": "ledare",
-    "political_leaning": "center-left", "gal_tan_position": "gal", "economic_position": "center",
-    "topics_profile": ["politik", "liberalism", "samhällsdebatt"],
-    "classification_source": "Offentlig profil",
-    "classification_confidence": "low",
-    "classification_notes": "OBS: Låg konfidens — kan vara ett alternativt stavning för 'Viktor Barth-Kron' (ledarskribent Expressen, redan i DB som slug 'viktor-barth-kron'). Om dessa är samma person bör Viktor Barktron tas bort. Verifiera.",
-    "notes": "Möjlig duplikat av 'viktor-barth-kron' — kontrollera."
   },
 
   {
