@@ -76,66 +76,120 @@ GOVERNMENT_RSS = "https://www.regeringen.se/Filter/RssFeed?filterType=Taxonomy&f
 # Twitter / X  (via twscrape)
 # ---------------------------------------------------------------------------
 
+_TWITTER_USER_CACHE: dict[str, str] = {}  # handle → user_id
+
+
+async def _twitter_get_user_id(client: httpx.AsyncClient, handle: str) -> Optional[str]:
+    """Slå upp Twitter user_id för ett handle via API v2."""
+    if handle in _TWITTER_USER_CACHE:
+        return _TWITTER_USER_CACHE[handle]
+    resp = await client.get(f"https://api.twitter.com/2/users/by/username/{handle}")
+    if resp.status_code != 200:
+        logger.warning(f"  Twitter user lookup misslyckades för @{handle}: {resp.status_code} {resp.text[:100]}")
+        return None
+    data = resp.json().get("data", {})
+    uid = data.get("id")
+    if uid:
+        _TWITTER_USER_CACHE[handle] = uid
+    return uid
+
+
 async def collect_twitter_statements(
     person: SourcePerson,
     session: AsyncSession,
     max_tweets: int = 200,
 ) -> int:
     """
-    Hämta tweets för en person via twscrape.
-
-    Kräver: pip install twscrape  (lägg till i pyproject.toml)
-    Kräver: TWITTER_USERNAME + TWITTER_PASSWORD i .env (eller guest mode)
-
-    twscrape skapar egna sessioner — inga officiella API-nycklar behövs.
+    Hämta tweets via Twitter API v2 (Bearer Token — app-only auth).
+    Kräver: TWITTER_BEARER_TOKEN i .env
     """
     handle = KNOWN_TWITTER_HANDLES.get(person.slug)
     if not handle:
         logger.debug(f"  {person.name}: inget känt Twitter-handle")
         return 0
 
-    try:
-        import twscrape  # type: ignore
-    except ImportError:
-        logger.warning("twscrape ej installerat — kör: pip install twscrape")
+    bearer = getattr(settings, "TWITTER_BEARER_TOKEN", None)
+    if not bearer:
+        logger.debug("TWITTER_BEARER_TOKEN saknas — hoppar över Twitter")
         return 0
 
+    headers = {
+        "Authorization": f"Bearer {bearer}",
+        "User-Agent": settings.USER_AGENT,
+    }
+
     try:
-        api = twscrape.API()
-        # Lägg till konto om credentials finns
-        username = getattr(settings, "TWITTER_USERNAME", None)
-        password = getattr(settings, "TWITTER_PASSWORD", None)
-        if username and password:
-            await api.pool.add_account(username, password, username, password)
-            await api.pool.login_all()
+        async with httpx.AsyncClient(headers=headers, timeout=15.0) as client:
+            user_id = await _twitter_get_user_id(client, handle)
+            if not user_id:
+                return 0
 
-        created = 0
-        async for tweet in api.user_tweets_and_replies(handle, limit=max_tweets):
-            content = tweet.rawContent or tweet.renderedContent or ""
-            if not content or len(content) < 20:
-                continue
-            url = f"https://x.com/{handle}/status/{tweet.id}"
+            created = 0
+            pagination_token: Optional[str] = None
+            fetched = 0
 
-            existing = await session.scalar(
-                select(PersonStatement).where(PersonStatement.url == url)
-            )
-            if existing:
-                continue
+            while fetched < max_tweets:
+                batch = min(100, max_tweets - fetched)
+                params: dict = {
+                    "max_results": batch,
+                    "tweet.fields": "created_at,text",
+                    "exclude": "retweets",
+                }
+                if pagination_token:
+                    params["pagination_token"] = pagination_token
 
-            pub_dt = tweet.date.replace(tzinfo=timezone.utc) if tweet.date else None
+                resp = await client.get(
+                    f"https://api.twitter.com/2/users/{user_id}/tweets",
+                    params=params,
+                )
+                if resp.status_code == 429:
+                    logger.warning(f"  Twitter rate limit nådd för {person.name} — avbryter")
+                    break
+                if resp.status_code != 200:
+                    logger.warning(f"  Twitter tweets-hämtning misslyckades: {resp.status_code} {resp.text[:100]}")
+                    break
 
-            stmt = pg_insert(PersonStatement).values(
-                person_id=person.id,
-                platform="twitter",
-                content=content,
-                url=url,
-                title=None,
-                published_at=pub_dt,
-                word_count=len(content.split()),
-            )
-            stmt = stmt.on_conflict_do_nothing()
-            await session.execute(stmt)
-            created += 1
+                body = resp.json()
+                tweets = body.get("data", [])
+                fetched += len(tweets)
+
+                for tweet in tweets:
+                    content = tweet.get("text", "")
+                    if not content or len(content) < 20:
+                        continue
+                    tweet_id = tweet.get("id", "")
+                    url = f"https://x.com/{handle}/status/{tweet_id}"
+
+                    existing = await session.scalar(
+                        select(PersonStatement).where(PersonStatement.url == url)
+                    )
+                    if existing:
+                        continue
+
+                    pub_dt = None
+                    if ts := tweet.get("created_at"):
+                        try:
+                            pub_dt = datetime.fromisoformat(ts.replace("Z", "+00:00"))
+                        except ValueError:
+                            pass
+
+                    stmt = pg_insert(PersonStatement).values(
+                        person_id=person.id,
+                        platform="twitter",
+                        content=content,
+                        url=url,
+                        title=None,
+                        published_at=pub_dt,
+                        word_count=len(content.split()),
+                    )
+                    stmt = stmt.on_conflict_do_nothing()
+                    await session.execute(stmt)
+                    created += 1
+
+                meta = body.get("meta", {})
+                pagination_token = meta.get("next_token")
+                if not pagination_token or not tweets:
+                    break
 
         await session.commit()
         logger.info(f"  {person.name}: {created} tweets sparade")

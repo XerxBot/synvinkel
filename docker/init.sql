@@ -241,5 +241,139 @@ CREATE TABLE fact_checks (
     created_at      TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- ============================================================
+-- ANALYTISKT PROVENIENSSCHEMA  (v0.2 — april 2025)
+-- ============================================================
+-- Designprincip: en persons politiska position är en funktion
+-- av tid, källmaterial och mätmetod — aldrig ett statiskt värde.
+--
+-- Tabeller:
+--   analysis_runs                  — en körning av analysmodellen
+--   analysis_statement_contributions — vilka uttalanden + vikter (beta)
+--   person_position_snapshots      — tidsstämplad klassificering
+--   person_trajectories            — detekterade politiska förflyttningar
+-- ============================================================
+
+-- 1. Analyskörningar — en rad per person+tillfälle+modell
+CREATE TABLE IF NOT EXISTS analysis_runs (
+    id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    person_id           UUID REFERENCES source_persons(id) ON DELETE CASCADE NOT NULL,
+
+    model_used          TEXT NOT NULL,
+    source_platforms    TEXT[],         -- vilka plattformar inkluderades
+    statements_analyzed INTEGER,        -- antal uttalanden som skickades
+
+    -- API-kostnadsspårning
+    tokens_input        INTEGER,
+    tokens_output       INTEGER,
+    cost_usd            FLOAT,          -- API-kostnad i USD
+
+    -- Tidsspann för inkluderade uttalanden
+    period_start        DATE,           -- äldsta uttalandets datum
+    period_end          DATE,           -- senaste uttalandets datum
+
+    status              TEXT DEFAULT 'completed',  -- pending|running|completed|failed
+    error_msg           TEXT,
+
+    created_at          TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 2. Uttalandebidrag — junction: uttalande × analyskörning med beta-vikt
+--    Svarar på: "Vilka sources och med vilka vikter genererade klassificeringen?"
+CREATE TABLE IF NOT EXISTS analysis_statement_contributions (
+    analysis_run_id     UUID REFERENCES analysis_runs(id) ON DELETE CASCADE NOT NULL,
+    statement_id        UUID REFERENCES person_statements(id) ON DELETE CASCADE NOT NULL,
+
+    -- Sammansatt beta-vikt (normaliserad till [0, 1])
+    weight              FLOAT NOT NULL DEFAULT 1.0,
+
+    -- Viktkomponenter (för insyn i hur vikten beräknades)
+    weight_recency      FLOAT,  -- tidsvikt (exponentiellt avfall, halvliv 3 år)
+    weight_platform     FLOAT,  -- plattformsfaktor (riksdag=1.5, twitter=0.7 etc.)
+    weight_length       FLOAT,  -- relativ längd vs median i körningen
+
+    -- Inkluderades uttalandet i prompten (kan exkluderas pga token-gräns)?
+    included            BOOLEAN DEFAULT true,
+
+    -- Registrerat politiskt signal för detta enskilda uttalande (valfritt)
+    signal_leaning      TEXT,
+    signal_confidence   FLOAT,
+
+    PRIMARY KEY (analysis_run_id, statement_id)
+);
+
+-- 3. Positions-snapshots — tidsstämplad politisk klassificering
+--    Den auktoritativa sanningskällan; source_persons.revealed_* är bara convenience-cache
+CREATE TABLE IF NOT EXISTS person_position_snapshots (
+    id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    person_id           UUID REFERENCES source_persons(id) ON DELETE CASCADE NOT NULL,
+    analysis_run_id     UUID REFERENCES analysis_runs(id),
+
+    -- Tidsspann för uttalanden som låg till grund
+    period_start        DATE,
+    period_end          DATE,
+
+    -- Politiska dimensioner (samma skala som source_persons)
+    political_leaning   TEXT,   -- far-left → far-right
+    gal_tan_position    TEXT,   -- gal → tan
+    economic_position   TEXT,   -- far-left → far-right
+
+    confidence          FLOAT,  -- modellens konfidens 0-1
+
+    -- Avvikelse vs deklarerad (institutionell) position
+    vs_declared_discrepancy TEXT,   -- none|minor|moderate|significant
+
+    -- Nyckelinsikter
+    key_themes          TEXT[],
+    analysis_notes      TEXT,
+
+    -- Metainformation
+    source_platforms    TEXT[],
+    statements_count    INTEGER,
+
+    -- Flagga senaste snapshot för enkel åtkomst
+    is_current          BOOLEAN DEFAULT false,
+
+    created_at          TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 4. Trajektorier — detekterade politiska förflyttningar över tid
+--    Beräknas automatiskt när ny snapshot läggs till (om tidigare finns)
+CREATE TABLE IF NOT EXISTS person_trajectories (
+    id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    person_id           UUID REFERENCES source_persons(id) ON DELETE CASCADE NOT NULL,
+
+    snapshot_from_id    UUID REFERENCES person_position_snapshots(id),
+    snapshot_to_id      UUID REFERENCES person_position_snapshots(id),
+
+    period_from         DATE,       -- period_end för from-snapshot
+    period_to           DATE,       -- period_end för to-snapshot
+
+    -- Vilken dimension analyseras
+    dimension           TEXT NOT NULL,  -- political_leaning|gal_tan|economic
+
+    -- Förflyttningen
+    value_from          TEXT,       -- t.ex. "left"
+    value_to            TEXT,       -- t.ex. "center-left"
+    direction           TEXT,       -- left|right|more_gal|more_tan|stable
+    magnitude           TEXT,       -- none|minor|moderate|significant
+
+    -- Narrativ förklaring
+    trajectory_notes    TEXT,
+    significance        TEXT,       -- routine|notable|major (för highlighting i UI)
+
+    computed_at         TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Index för snabb åtkomst
+CREATE INDEX IF NOT EXISTS idx_analysis_runs_person     ON analysis_runs(person_id);
+CREATE INDEX IF NOT EXISTS idx_analysis_runs_created    ON analysis_runs(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_stmt_contrib_run         ON analysis_statement_contributions(analysis_run_id);
+CREATE INDEX IF NOT EXISTS idx_stmt_contrib_statement   ON analysis_statement_contributions(statement_id);
+CREATE INDEX IF NOT EXISTS idx_snapshots_person_time    ON person_position_snapshots(person_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_snapshots_current        ON person_position_snapshots(person_id) WHERE is_current = true;
+CREATE INDEX IF NOT EXISTS idx_trajectories_person      ON person_trajectories(person_id);
+CREATE INDEX IF NOT EXISTS idx_trajectories_dimension   ON person_trajectories(person_id, dimension);
+
 -- Admin user
 INSERT INTO users (email, display_name, role) VALUES ('xerxes@analytech.se', 'Xerxes', 'admin');

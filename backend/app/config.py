@@ -15,6 +15,16 @@ class Settings(BaseSettings):
     ANTHROPIC_API_KEY: str = ""
     FACTCHECK_MODEL: str = "claude-sonnet-4-6"
 
+    # Social media collectors — Twitter API v2
+    TWITTER_BEARER_TOKEN: str = ""
+    TWITTER_CONSUMER_KEY: str = ""
+    TWITTER_CONSUMER_SECRET: str = ""
+    # Legacy twscrape (ej längre i bruk)
+    TWITTER_USERNAME: str = ""
+    TWITTER_PASSWORD: str = ""
+    TWITTER_COOKIES: str = ""
+    FACEBOOK_ACCESS_TOKEN: str = ""
+
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
 
