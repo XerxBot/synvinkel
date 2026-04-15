@@ -83,7 +83,17 @@ async def seed_persons(session: AsyncSession) -> tuple[int, int]:
         if org_slug and not org_id:
             logger.warning(f"  Okänd org_slug '{org_slug}' för {p['name']} — hoppar över org-länk")
 
-        values = {**p, "organization_id": org_id}
+        # Lös secondary_org_slugs → secondary_org_ids (lista av UUIDs)
+        secondary_slugs = p.pop("secondary_org_slugs", None) or []
+        secondary_ids = []
+        for s_slug in secondary_slugs:
+            s_id = org_map.get(s_slug)
+            if s_id:
+                secondary_ids.append(s_id)
+            else:
+                logger.warning(f"  Okänd secondary_org_slug '{s_slug}' för {p['name']} — ignoreras")
+
+        values = {**p, "organization_id": org_id, "secondary_org_ids": secondary_ids or None}
 
         # Kontrollera om personen finns (för loggning)
         existing = await session.scalar(
