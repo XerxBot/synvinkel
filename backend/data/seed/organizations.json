@@ -14,7 +14,9 @@
     "founded_year": 1864,
     "classification_source": "Ledarsidans deklaration + Garz et al. (2023)",
     "classification_confidence": "high",
-    "classification_notes": "Ägd av Bonnier. Ledarsidan deklarerat oberoende liberal. Journalistkåren lutar GAL relativt befolkningen (Asp 2011)."
+    "classification_notes": "Ägd av Bonnier. Ledarsidan deklarerat oberoende liberal. Journalistkåren lutar GAL relativt befolkningen (Asp 2011).",
+    "staff_bias_gal_tan": "gal",
+    "staff_bias_source": "Asp (2011): DN-journalister lutar GAL, Bonnier-sfar"
   },
   {
     "name": "Svenska Dagbladet",
@@ -31,7 +33,9 @@
     "founded_year": 1884,
     "classification_source": "Ledarsidans deklaration",
     "classification_confidence": "high",
-    "classification_notes": "Ägd av Schibsted. Ledarsidan deklarerat oberoende moderat. Historiskt konservativt inriktad."
+    "classification_notes": "Ägd av Schibsted. Ledarsidan deklarerat oberoende moderat. Historiskt konservativt inriktad.",
+    "staff_bias_gal_tan": "center",
+    "staff_bias_source": "Asp (2011): SvD mer balanserat GAL/center an DN/AB"
   },
   {
     "name": "Aftonbladet",
@@ -48,7 +52,9 @@
     "founded_year": 1830,
     "classification_source": "Ledarsidans deklaration + ägarstruktur",
     "classification_confidence": "high",
-    "classification_notes": "LO äger nästan 50 %. Ledarsidan explicit socialdemokratisk."
+    "classification_notes": "LO äger nästan 50 %. Ledarsidan explicit socialdemokratisk.",
+    "staff_bias_gal_tan": "gal",
+    "staff_bias_source": "Asp (2011): AB-journalister gal; LO-agande forstärker"
   },
   {
     "name": "Expressen",
@@ -65,7 +71,9 @@
     "founded_year": 1944,
     "classification_source": "Ledarsidans deklaration",
     "classification_confidence": "high",
-    "classification_notes": "Ägd av Bonnier. Tvillingtidning till DN men tabloid."
+    "classification_notes": "Ägd av Bonnier. Tvillingtidning till DN men tabloid.",
+    "staff_bias_gal_tan": "gal",
+    "staff_bias_source": "Asp (2011): Expressen-journalister lutar GAL"
   },
   {
     "name": "Göteborgs-Posten",
@@ -82,7 +90,9 @@
     "founded_year": 1858,
     "classification_source": "Ledarsidans deklaration",
     "classification_confidence": "high",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": "center-left",
+    "staff_bias_source": "Asp (2011): regional press nagot mer balanserad"
   },
   {
     "name": "Dagens Industri",
@@ -99,7 +109,9 @@
     "founded_year": 1976,
     "classification_source": "Redaktionell profil + ägarstruktur",
     "classification_confidence": "high",
-    "classification_notes": "Tydlig marknadsliberal agenda. Ledarsidan förespråkar låga skatter och avregleringar."
+    "classification_notes": "Tydlig marknadsliberal agenda. Ledarsidan förespråkar låga skatter och avregleringar.",
+    "staff_bias_gal_tan": "center",
+    "staff_bias_source": "Naeringsliv-journalister mer ekonomiskt hoger, GAL-neutral"
   },
   {
     "name": "Sydsvenskan",
@@ -116,7 +128,9 @@
     "founded_year": 1848,
     "classification_source": "Ledarsidans deklaration",
     "classification_confidence": "high",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": "center-left",
+    "staff_bias_source": "Asp (2011): regional press"
   },
   {
     "name": "SVT Nyheter",
@@ -133,7 +147,9 @@
     "founded_year": 1956,
     "classification_source": "Asp (2011), SOM-institutet (2025)",
     "classification_confidence": "medium",
-    "classification_notes": "Formellt opartisk. Journalistkåren >80% rödgröna (Asp 2011). Förtroende 75% totalt men bara 46% bland högerväljare (2025). OBS: gal_tan=center avser redaktionell linje; journalistkaren Asp (2011) center-left men det ar personal, ej editorial policy."
+    "classification_notes": "Formellt opartisk. Journalistkåren >80% rödgröna (Asp 2011). Förtroende 75% totalt men bara 46% bland högerväljare (2025). OBS: gal_tan=center avser redaktionell linje; journalistkaren Asp (2011) center-left men det ar personal, ej editorial policy.",
+    "staff_bias_gal_tan": "gal",
+    "staff_bias_source": "Asp (2011): >80% journalister rodgron, <7% M"
   },
   {
     "name": "SR Ekot",
@@ -150,7 +166,9 @@
     "founded_year": 1925,
     "classification_source": "Asp (2011), SOM-institutet (2025)",
     "classification_confidence": "medium",
-    "classification_notes": "Högst förtroende av alla medier (73% totalt). Journalistkåren 54% MP (Asp 2011 för PS totalt). OBS: gal_tan=center avser redaktionell linje; journalistkaren Asp (2011) center-left men det ar personal, ej editorial policy."
+    "classification_notes": "Högst förtroende av alla medier (73% totalt). Journalistkåren 54% MP (Asp 2011 för PS totalt). OBS: gal_tan=center avser redaktionell linje; journalistkaren Asp (2011) center-left men det ar personal, ej editorial policy.",
+    "staff_bias_gal_tan": "gal",
+    "staff_bias_source": "Asp (2011): 54% MP, jamforbar med SVT"
   },
   {
     "name": "ETC",
@@ -167,7 +185,9 @@
     "founded_year": 2006,
     "classification_source": "Redaktionell profil + ägarstruktur",
     "classification_confidence": "high",
-    "classification_notes": "Explicit vänster-grön profil."
+    "classification_notes": "Explicit vänster-grön profil.",
+    "staff_bias_gal_tan": "gal",
+    "staff_bias_source": "Explicit socialistisk-gron redaktion"
   },
   {
     "name": "Syre",
@@ -184,7 +204,9 @@
     "founded_year": 2016,
     "classification_source": "Redaktionell profil",
     "classification_confidence": "high",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": "gal",
+    "staff_bias_source": "Explicit gron-vanster"
   },
   {
     "name": "Kvartal",
@@ -201,7 +223,9 @@
     "founded_year": 2018,
     "classification_source": "Redaktionell profil",
     "classification_confidence": "medium",
-    "classification_notes": "Profil lutar höger om mainstream men vänster om Nyheter Idag. Balanserat."
+    "classification_notes": "Profil lutar höger om mainstream men vänster om Nyheter Idag. Balanserat.",
+    "staff_bias_gal_tan": "center",
+    "staff_bias_source": "Liberal-centristisk profil"
   },
   {
     "name": "Nyheter Idag",
@@ -218,7 +242,9 @@
     "founded_year": 2014,
     "classification_source": "Redaktionell profil + Strömbäck et al. (2025)",
     "classification_confidence": "high",
-    "classification_notes": "Identifierad som höger-alternativmedia i Strömbäck et al. (2025)."
+    "classification_notes": "Identifierad som höger-alternativmedia i Strömbäck et al. (2025).",
+    "staff_bias_gal_tan": "tan",
+    "staff_bias_source": "Redaktionen explicit hogernationalistisk"
   },
   {
     "name": "Samtiden",
@@ -235,7 +261,9 @@
     "founded_year": 2018,
     "classification_source": "Organisationskoppling",
     "classification_confidence": "high",
-    "classification_notes": "Grundad av SD-profiler, tydlig SD-linje."
+    "classification_notes": "Grundad av SD-profiler, tydlig SD-linje.",
+    "staff_bias_gal_tan": "tan",
+    "staff_bias_source": "SD-nara redaktion"
   },
   {
     "name": "Samhällsnytt",
@@ -252,7 +280,9 @@
     "founded_year": 2013,
     "classification_source": "Redaktionell profil + Strömbäck et al. (2025)",
     "classification_confidence": "high",
-    "classification_notes": "Tidigare kallad Avpixlat. Identifierad som höger-alternativmedia."
+    "classification_notes": "Tidigare kallad Avpixlat. Identifierad som höger-alternativmedia.",
+    "staff_bias_gal_tan": "tan",
+    "staff_bias_source": "Nationalistisk redaktion"
   },
   {
     "name": "Dagens Arena",
@@ -269,7 +299,9 @@
     "founded_year": 2010,
     "classification_source": "Ägarstruktur + redaktionell profil",
     "classification_confidence": "high",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Cogito",
@@ -286,7 +318,9 @@
     "founded_year": 1990,
     "classification_source": "Redaktionell profil",
     "classification_confidence": "medium",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Timbro",
@@ -304,7 +338,9 @@
     "founded_year": 1978,
     "classification_source": "Arena Idé-rapport (2022), finansieringsanalys",
     "classification_confidence": "high",
-    "classification_notes": "Ensam smedja med större mediegenomslag än alla fackliga smedjor sammantagna."
+    "classification_notes": "Ensam smedja med större mediegenomslag än alla fackliga smedjor sammantagna.",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "IFN",
@@ -321,7 +357,9 @@
     "founded_year": 1939,
     "classification_source": "Finansieringsanalys",
     "classification_confidence": "high",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Ratio",
@@ -338,7 +376,9 @@
     "founded_year": 2002,
     "classification_source": "Finansieringsanalys",
     "classification_confidence": "high",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Näringsliv och Medier (NMI)",
@@ -355,7 +395,9 @@
     "founded_year": 2005,
     "classification_source": "Finansieringsanalys",
     "classification_confidence": "medium",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Fores",
@@ -372,7 +414,9 @@
     "founded_year": 2007,
     "classification_source": "Finansieringsanalys + organisationshistorik",
     "classification_confidence": "high",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "SNS",
@@ -389,7 +433,9 @@
     "founded_year": 1948,
     "classification_source": "Finansieringsanalys",
     "classification_confidence": "medium",
-    "classification_notes": "Finansieras av breda koalitioner — relativt balanserade publikationer."
+    "classification_notes": "Finansieras av breda koalitioner — relativt balanserade publikationer.",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Katalys",
@@ -407,7 +453,9 @@
     "founded_year": 2012,
     "classification_source": "Arena Idé-rapport (2022), finansieringsanalys",
     "classification_confidence": "high",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Arena Idé",
@@ -424,7 +472,9 @@
     "founded_year": 2008,
     "classification_source": "Finansieringsanalys",
     "classification_confidence": "high",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Tankesmedjan Tiden",
@@ -441,7 +491,9 @@
     "founded_year": 1908,
     "classification_source": "Organisationshistorik",
     "classification_confidence": "high",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Futurion",
@@ -458,7 +510,9 @@
     "founded_year": 2017,
     "classification_source": "Finansieringsanalys",
     "classification_confidence": "high",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Socialdemokraterna",
@@ -474,7 +528,9 @@
     "founded_year": 1889,
     "classification_source": "Partiprogram 2021",
     "classification_confidence": "high",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Moderaterna",
@@ -490,7 +546,9 @@
     "founded_year": 1904,
     "classification_source": "Partiprogram 2021",
     "classification_confidence": "high",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Sverigedemokraterna",
@@ -506,7 +564,9 @@
     "founded_year": 1988,
     "classification_source": "Partiprogram 2022",
     "classification_confidence": "high",
-    "classification_notes": "Riksdagsparti sedan 2010. Stödparti till regeringen Kristersson (2022–)."
+    "classification_notes": "Riksdagsparti sedan 2010. Stödparti till regeringen Kristersson (2022–).",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Centerpartiet",
@@ -522,7 +582,9 @@
     "founded_year": 1913,
     "classification_source": "Partiprogram 2021",
     "classification_confidence": "high",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Vänsterpartiet",
@@ -538,7 +600,9 @@
     "founded_year": 1921,
     "classification_source": "Partiprogram 2020",
     "classification_confidence": "high",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Miljöpartiet",
@@ -554,7 +618,9 @@
     "founded_year": 1981,
     "classification_source": "Partiprogram 2021",
     "classification_confidence": "high",
-    "classification_notes": "Identifierat av Asp (2011) som 'fredat' i medierapporteringen — sällan kritiskt granskade."
+    "classification_notes": "Identifierat av Asp (2011) som 'fredat' i medierapporteringen — sällan kritiskt granskade.",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Liberalerna",
@@ -570,7 +636,9 @@
     "founded_year": 1934,
     "classification_source": "Partiprogram 2022",
     "classification_confidence": "high",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Kristdemokraterna",
@@ -586,7 +654,9 @@
     "founded_year": 1964,
     "classification_source": "Partiprogram 2021",
     "classification_confidence": "high",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Riksdagen",
@@ -602,7 +672,9 @@
     "founded_year": 1435,
     "classification_source": "Institutionell roll",
     "classification_confidence": "high",
-    "classification_notes": "API: data.riksdagen.se — anföranden sedan 2003, motioner sedan 1961."
+    "classification_notes": "API: data.riksdagen.se — anföranden sedan 2003, motioner sedan 1961.",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Regeringskansliet",
@@ -618,7 +690,9 @@
     "founded_year": 1840,
     "classification_source": "Institutionell roll",
     "classification_confidence": "high",
-    "classification_notes": null
+    "classification_notes": null,
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Svenskt Näringsliv",
@@ -635,7 +709,9 @@
     "founded_year": 2001,
     "classification_source": "Organisationens stadgar + politisk analys",
     "classification_confidence": "high",
-    "classification_notes": "Resultatet av sammanslagning av SAF och Industriförbundet. Tydlig höger-ekonomisk agenda med fokus på sänkta skatter, avreglering och arbetsgivarintressen."
+    "classification_notes": "Resultatet av sammanslagning av SAF och Industriförbundet. Tydlig höger-ekonomisk agenda med fokus på sänkta skatter, avreglering och arbetsgivarintressen.",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Reddit Svenska",
@@ -652,7 +728,9 @@
     "founded_year": 2010,
     "classification_source": "Plattformsanalys",
     "classification_confidence": "low",
-    "classification_notes": "Ingen redaktionell profil — användargenererat. GAL-TAN-uppskattning baserad på demografisk analys av r/svenskpolitik-användare."
+    "classification_notes": "Ingen redaktionell profil — användargenererat. GAL-TAN-uppskattning baserad på demografisk analys av r/svenskpolitik-användare.",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Fokus",
@@ -669,7 +747,9 @@
     "founded_year": 2005,
     "classification_source": "Redaktionell profil + ägarstruktur + Wikipedia",
     "classification_confidence": "medium",
-    "classification_notes": "Grundat 2005 av Martin Ahlquist, Martin Ådahl m.fl. Politisk chefredaktör Johan Hakelius (konservativ-liberal) och ansvarig utgivare Jon Åsberg. Ägare: Ax:son Johnson-sfären (borgerlig). Profil officiellt centristisk men redaktionell ton lutar center-right under Hakelius."
+    "classification_notes": "Grundat 2005 av Martin Ahlquist, Martin Ådahl m.fl. Politisk chefredaktör Johan Hakelius (konservativ-liberal) och ansvarig utgivare Jon Åsberg. Ägare: Ax:son Johnson-sfären (borgerlig). Profil officiellt centristisk men redaktionell ton lutar center-right under Hakelius.",
+    "staff_bias_gal_tan": "center-right",
+    "staff_bias_source": "Hakelius-ledning lutar center-hoger"
   },
   {
     "name": "Sista måltiden",
@@ -686,7 +766,9 @@
     "founded_year": 2020,
     "classification_source": "Poddens gästregister + värdarnas profiler + Wikipedia",
     "classification_confidence": "medium",
-    "classification_notes": "5 värdar: Fardost (liberal-centrist), Panshiri (liberal-konservativ, polis), Azizi (polis), Makram (islamkritiker/sekularist), Frick (höger-nationalistisk). Samlad profil: sekularistisk-liberal-konservativ, kritisk mot etablerade medier. Bjuder brett: Åkesson, Busch, Strömmer har gästat."
+    "classification_notes": "5 värdar: Fardost (liberal-centrist), Panshiri (liberal-konservativ, polis), Azizi (polis), Makram (islamkritiker/sekularist), Frick (höger-nationalistisk). Samlad profil: sekularistisk-liberal-konservativ, kritisk mot etablerade medier. Bjuder brett: Åkesson, Busch, Strömmer har gästat.",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Haveristerna",
@@ -703,7 +785,9 @@
     "founded_year": 2017,
     "classification_source": "Poddens profil + värdarnas uttalanden + Wikipedia sv",
     "classification_confidence": "high",
-    "classification_notes": "Grundad av Axel Luo Öhman och Henrik Johansson. Sanna Fielding gick in 2020 som medvärd. Johansson lämnade december 2024. Axel Luo Öhman dömd för förtal vid flera tillfällen. Tydlig vänster-antirasistisk profil."
+    "classification_notes": "Grundad av Axel Luo Öhman och Henrik Johansson. Sanna Fielding gick in 2020 som medvärd. Johansson lämnade december 2024. Axel Luo Öhman dömd för förtal vid flera tillfällen. Tydlig vänster-antirasistisk profil.",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Framgångspodden",
@@ -720,7 +804,9 @@
     "founded_year": 2015,
     "classification_source": "Poddens innehåll + Wikipedia + Alexander Pärleros-profil",
     "classification_confidence": "medium",
-    "classification_notes": "Apolitisk profil men marknadsorienterat narrativ kring individuell framgång och prestation — typisk center-right världsbild. Undviker partipolitik."
+    "classification_notes": "Apolitisk profil men marknadsorienterat narrativ kring individuell framgång och prestation — typisk center-right världsbild. Undviker partipolitik.",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Rak höger",
@@ -737,7 +823,9 @@
     "founded_year": 2022,
     "classification_source": "Poddens innehåll + Arpis offentliga profil + Wikipedia",
     "classification_confidence": "high",
-    "classification_notes": "Ivar Arpi efter att ha lämnat SvD-ledarsidan och Bulletin. Kritisk mot invandringspolitik, identitetspolitik och mainstream-media. Top-20 nyhetspodcast."
+    "classification_notes": "Ivar Arpi efter att ha lämnat SvD-ledarsidan och Bulletin. Kritisk mot invandringspolitik, identitetspolitik och mainstream-media. Top-20 nyhetspodcast.",
+    "staff_bias_gal_tan": "tan",
+    "staff_bias_source": "Arpi explicit hoger-liberal/nationalliberal"
   },
   {
     "name": "Bulletin",
@@ -754,7 +842,9 @@
     "founded_year": 2020,
     "classification_source": "Redaktionell profil + Journalisten + Wikipedia sv",
     "classification_confidence": "high",
-    "classification_notes": "Grundat dec 2020. Startade som 'liberalkonservativ', omdöpt till 'frihetligt konservativ' april 2021. Nuv. chefredaktör: Pelle Zachrisson (feb 2025, rekryterad från Nyheter Idag). Profil: invandringskritisk, anti-woke, kritisk mot public service."
+    "classification_notes": "Grundat dec 2020. Startade som 'liberalkonservativ', omdöpt till 'frihetligt konservativ' april 2021. Nuv. chefredaktör: Pelle Zachrisson (feb 2025, rekryterad från Nyheter Idag). Profil: invandringskritisk, anti-woke, kritisk mot public service.",
+    "staff_bias_gal_tan": "tan",
+    "staff_bias_source": "Frihetligt konservativ redaktion"
   },
   {
     "name": "Parabol",
@@ -771,7 +861,9 @@
     "founded_year": 2023,
     "classification_source": "Redaktionell profil + grundarnas profiler",
     "classification_confidence": "high",
-    "classification_notes": "Grundat aug 2023 av Kajsa Ekis Ekman (chefredaktör), Nina Björk, Aleksa Lundberg, Francisco Contreras, Emma Hager, Stefan Arvidsson. Vänster-intellektuellt projekt, marxistisk feministisk bas."
+    "classification_notes": "Grundat aug 2023 av Kajsa Ekis Ekman (chefredaktör), Nina Björk, Aleksa Lundberg, Francisco Contreras, Emma Hager, Stefan Arvidsson. Vänster-intellektuellt projekt, marxistisk feministisk bas.",
+    "staff_bias_gal_tan": "gal",
+    "staff_bias_source": "Explicit marxistisk-feministisk"
   },
   {
     "name": "Värvet",
@@ -788,7 +880,9 @@
     "founded_year": 2015,
     "classification_source": "Poddens innehåll + Wikipedia",
     "classification_confidence": "low",
-    "classification_notes": "Kulturliberal profil utan tydlig politisk agenda. Triumf intervjuar brett — politiker, konstnärer, underhållare."
+    "classification_notes": "Kulturliberal profil utan tydlig politisk agenda. Triumf intervjuar brett — politiker, konstnärer, underhållare.",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "God Ton",
@@ -805,7 +899,9 @@
     "founded_year": 2020,
     "classification_source": "Poddens innehåll + värdarnas bakgrunder",
     "classification_confidence": "high",
-    "classification_notes": "Hanif Bali: fd M-riksdagsledamot 2010–2022 (Iranisk-svensk bakgrund, Järva-uppväxt). Kritisk mot bidragsberoende och invandringspolitik. Per Lindgren: jurist, fd politisk sekreterare M, kommunikationschef Skattebetalarna."
+    "classification_notes": "Hanif Bali: fd M-riksdagsledamot 2010–2022 (Iranisk-svensk bakgrund, Järva-uppväxt). Kritisk mot bidragsberoende och invandringspolitik. Per Lindgren: jurist, fd politisk sekreterare M, kommunikationschef Skattebetalarna.",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Smedjan",
@@ -822,7 +918,9 @@
     "founded_year": 2018,
     "classification_source": "Redaktionell profil + grundarens bakgrund",
     "classification_confidence": "high",
-    "classification_notes": "Lars Anders Johansson: fd vd Musikerförbundet, klassisk liberal. Kritisk mot identitetspolitik och statlig kulturfinansiering."
+    "classification_notes": "Lars Anders Johansson: fd vd Musikerförbundet, klassisk liberal. Kritisk mot identitetspolitik och statlig kulturfinansiering.",
+    "staff_bias_gal_tan": "center",
+    "staff_bias_source": "Klassisk liberal, inte TAN"
   },
   {
     "name": "Alternativ för Sverige",
@@ -838,7 +936,9 @@
     "founded_year": 2018,
     "classification_source": "Partiprogram + organisationshistorik",
     "classification_confidence": "high",
-    "classification_notes": "Grundat av Gustav Kasselstrand och William Hahne efter intern SD-konflikt. Förespråkar fullständigt invandringsstopp och remigration. Utanför riksdagen."
+    "classification_notes": "Grundat av Gustav Kasselstrand och William Hahne efter intern SD-konflikt. Förespråkar fullständigt invandringsstopp och remigration. Utanför riksdagen.",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Fria Tider",
@@ -855,7 +955,9 @@
     "founded_year": 2010,
     "classification_source": "Redaktionell profil + Strömbäck et al. (2025) + PON-beslut",
     "classification_confidence": "high",
-    "classification_notes": "Identifierad som höger-extremt alternativmedia i akademisk forskning. Upprepade pressombudsmansbeslut för vilseledande rapportering."
+    "classification_notes": "Identifierad som höger-extremt alternativmedia i akademisk forskning. Upprepade pressombudsmansbeslut för vilseledande rapportering.",
+    "staff_bias_gal_tan": "tan",
+    "staff_bias_source": "Far-right redaktion (Vavra Suk)"
   },
   {
     "name": "TV4",
@@ -872,7 +974,9 @@
     "founded_year": 1990,
     "classification_source": "Redaktionell profil",
     "classification_confidence": "medium",
-    "classification_notes": "Ägt av Nordic Entertainment Group (NENT). Nyhetsprogrammen håller neutral linje. Mer tabloidpräglad än SVT."
+    "classification_notes": "Ägt av Nordic Entertainment Group (NENT). Nyhetsprogrammen håller neutral linje. Mer tabloidpräglad än SVT.",
+    "staff_bias_gal_tan": "center-left",
+    "staff_bias_source": "Inga direktmatningar; TV-journalister liknar PS-journalister"
   },
   {
     "name": "Axess",
@@ -889,7 +993,9 @@
     "founded_year": 2003,
     "classification_source": "Redaktionell profil + finansieringsanalys",
     "classification_confidence": "high",
-    "classification_notes": "Finansierad av Ax:son Johnson-sfären (samma ägare som Fokus). Kulturkonservativt editorial med intellektuell profil. Kritisk mot relativism och politisk korrekthet."
+    "classification_notes": "Finansierad av Ax:son Johnson-sfären (samma ägare som Fokus). Kulturkonservativt editorial med intellektuell profil. Kritisk mot relativism och politisk korrekthet.",
+    "staff_bias_gal_tan": "tan",
+    "staff_bias_source": "Kulturkonservativ redaktion (Lundberg)"
   },
   {
     "name": "Expressen TV",
@@ -906,7 +1012,9 @@
     "founded_year": 2010,
     "classification_source": "Redaktionell profil (Expressen)",
     "classification_confidence": "medium",
-    "classification_notes": "Del av Expressen — delar ledarsidans oberoende liberala profil."
+    "classification_notes": "Del av Expressen — delar ledarsidans oberoende liberala profil.",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Arbetet",
@@ -923,7 +1031,9 @@
     "founded_year": 1887,
     "classification_source": "Redaktionell profil + ägarstruktur",
     "classification_confidence": "high",
-    "classification_notes": "En av Sveriges äldsta tidningar, nu digital. Facklig bas, kritisk mot kapital och nyliberalism. Nära LO-rörelsen."
+    "classification_notes": "En av Sveriges äldsta tidningar, nu digital. Facklig bas, kritisk mot kapital och nyliberalism. Nära LO-rörelsen.",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Altinget Sverige",
@@ -940,7 +1050,9 @@
     "founded_year": 2014,
     "classification_source": "Redaktionell profil",
     "classification_confidence": "medium",
-    "classification_notes": "Dansk ursprungskoncept, lanserat i Sverige 2014. Fokus på insiderinfo om politiska processer. Upplevs som Beltway-media, neutral men politikercentrerat perspektiv."
+    "classification_notes": "Dansk ursprungskoncept, lanserat i Sverige 2014. Fokus på insiderinfo om politiska processer. Upplevs som Beltway-media, neutral men politikercentrerat perspektiv.",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Svenska kyrkan",
@@ -957,7 +1069,9 @@
     "founded_year": 1523,
     "classification_source": "Kyrkans officiella position + SOM-institutet",
     "classification_confidence": "medium",
-    "classification_notes": "Kyrkostyrelsen och biskoparna tenderar GAL-liberal position i sociala frågor. Officiellt neutral men progressiv på frågor om genus, HBTQ och migration."
+    "classification_notes": "Kyrkostyrelsen och biskoparna tenderar GAL-liberal position i sociala frågor. Officiellt neutral men progressiv på frågor om genus, HBTQ och migration.",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "Piratpartiet",
@@ -973,7 +1087,9 @@
     "founded_year": 2006,
     "classification_source": "Partiprogram",
     "classification_confidence": "high",
-    "classification_notes": "Riksdagsparti 2010–2014 (2 mandat). EU-parlamentariker. Frontade digitala rättighetsfrågor. Inte längre i riksdagen men fortfarande aktiva."
+    "classification_notes": "Riksdagsparti 2010–2014 (2 mandat). EU-parlamentariker. Frontade digitala rättighetsfrågor. Inte längre i riksdagen men fortfarande aktiva.",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   },
   {
     "name": "TV4 Nyheterna",
@@ -990,7 +1106,9 @@
     "founded_year": 1991,
     "classification_source": "Redaktionell profil",
     "classification_confidence": "medium",
-    "classification_notes": "Kommersiella nyheter. Tabloidpräglad men högt förtroende. Mer personcentrerad journalistik än SVT."
+    "classification_notes": "Kommersiella nyheter. Tabloidpräglad men högt förtroende. Mer personcentrerad journalistik än SVT.",
+    "staff_bias_gal_tan": "center-left",
+    "staff_bias_source": "Inga direktmatningar; TV-journalister"
   },
   {
     "name": "SR P1",
@@ -1007,7 +1125,9 @@
     "founded_year": 1925,
     "classification_source": "SOM-institutet + Asp (2011)",
     "classification_confidence": "medium",
-    "classification_notes": "P1 är SR:s talkanal. Programmen Spanarna, Godmorgon Världen och Studio Ett samlar akademiker och journalister som regelbundna gäster — dessa tenderar att vara GAL-center-vänster. OBS: gal_tan=center avser redaktionell linje; journalistkaren Asp (2011) center-left men det ar personal, ej editorial policy."
+    "classification_notes": "P1 är SR:s talkanal. Programmen Spanarna, Godmorgon Världen och Studio Ett samlar akademiker och journalister som regelbundna gäster — dessa tenderar att vara GAL-center-vänster. OBS: gal_tan=center avser redaktionell linje; journalistkaren Asp (2011) center-left men det ar personal, ej editorial policy.",
+    "staff_bias_gal_tan": "gal",
+    "staff_bias_source": "Asp (2011): SR-journalister kraftigt overre GAL"
   },
   {
     "name": "Di Digital / DI-TV",
@@ -1024,6 +1144,8 @@
     "founded_year": 2010,
     "classification_source": "Redaktionell profil (DI)",
     "classification_confidence": "medium",
-    "classification_notes": "Ingår i DI-sfären med tydlig marknadsliberal profil. Ekonomiexperter och VD-intervjuer dominerar."
+    "classification_notes": "Ingår i DI-sfären med tydlig marknadsliberal profil. Ekonomiexperter och VD-intervjuer dominerar.",
+    "staff_bias_gal_tan": null,
+    "staff_bias_source": null
   }
 ]

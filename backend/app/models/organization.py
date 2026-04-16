@@ -36,6 +36,8 @@ class SourceOrganization(Base):
     classification_source: Mapped[Optional[str]] = mapped_column(Text)
     classification_confidence: Mapped[str] = mapped_column(Text, server_default=text("'high'"))
     classification_notes: Mapped[Optional[str]] = mapped_column(Text)
+    staff_bias_gal_tan: Mapped[Optional[str]] = mapped_column(Text)
+    staff_bias_source: Mapped[Optional[str]] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("NOW()"))
     updated_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("NOW()"))
 

@@ -30,17 +30,22 @@ async def seed_organizations(session: AsyncSession) -> int:
     orgs = json.loads(path.read_text(encoding="utf-8"))
     created = 0
 
+    updated = 0
     for org_data in orgs:
         existing = await session.scalar(
             select(SourceOrganization).where(SourceOrganization.slug == org_data["slug"])
         )
         if existing:
-            continue
-        session.add(SourceOrganization(**org_data))
-        created += 1
+            for k, v in org_data.items():
+                if hasattr(existing, k):
+                    setattr(existing, k, v)
+            updated += 1
+        else:
+            session.add(SourceOrganization(**org_data))
+            created += 1
 
     await session.commit()
-    return created
+    return created, updated
 
 
 async def seed_topics(session: AsyncSession) -> int:
@@ -129,8 +134,8 @@ async def main():
     SessionLocal = async_sessionmaker(engine, expire_on_commit=False)
 
     async with SessionLocal() as session:
-        orgs = await seed_organizations(session)
-        logger.info(f"  Organisationer: {orgs} nya skapade")
+        orgs_created, orgs_updated = await seed_organizations(session)
+        logger.info(f"  Organisationer: {orgs_created} nya skapade, {orgs_updated} uppdaterade")
 
         topics = await seed_topics(session)
         logger.info(f"  Ämnen: {topics} nya skapade")
