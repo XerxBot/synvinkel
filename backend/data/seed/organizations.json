@@ -125,7 +125,7 @@
     "website": "https://www.svt.se/nyheter",
     "description": "Sveriges Television — public service-television. Formellt opartisk enligt sändningstillståndet.",
     "political_leaning": "neutral",
-    "gal_tan_position": "center-left",
+    "gal_tan_position": "center",
     "economic_position": "center",
     "declared_ideology": "Opartisk och saklig (sändningstillstånd)",
     "primary_funder": "Public service-avgift (staten)",
@@ -133,7 +133,7 @@
     "founded_year": 1956,
     "classification_source": "Asp (2011), SOM-institutet (2025)",
     "classification_confidence": "medium",
-    "classification_notes": "Formellt opartisk. Journalistkåren >80% rödgröna (Asp 2011). Förtroende 75% totalt men bara 46% bland högerväljare (2025)."
+    "classification_notes": "Formellt opartisk. Journalistkåren >80% rödgröna (Asp 2011). Förtroende 75% totalt men bara 46% bland högerväljare (2025). OBS: gal_tan=center avser redaktionell linje; journalistkaren Asp (2011) center-left men det ar personal, ej editorial policy."
   },
   {
     "name": "SR Ekot",
@@ -142,7 +142,7 @@
     "website": "https://www.sr.se/ekot",
     "description": "Sveriges Radio Ekot — public service-radio. Högst förtroende av alla svenska medier.",
     "political_leaning": "neutral",
-    "gal_tan_position": "center-left",
+    "gal_tan_position": "center",
     "economic_position": "center",
     "declared_ideology": "Opartisk och saklig (sändningstillstånd)",
     "primary_funder": "Public service-avgift (staten)",
@@ -150,7 +150,7 @@
     "founded_year": 1925,
     "classification_source": "Asp (2011), SOM-institutet (2025)",
     "classification_confidence": "medium",
-    "classification_notes": "Högst förtroende av alla medier (73% totalt). Journalistkåren 54% MP (Asp 2011 för PS totalt)."
+    "classification_notes": "Högst förtroende av alla medier (73% totalt). Journalistkåren 54% MP (Asp 2011 för PS totalt). OBS: gal_tan=center avser redaktionell linje; journalistkaren Asp (2011) center-left men det ar personal, ej editorial policy."
   },
   {
     "name": "ETC",
@@ -999,7 +999,7 @@
     "website": "https://sverigesradio.se/p1",
     "description": "Sveriges Radios talade ord-kanal med nyheter, debatt och samhällsprogram (Spanarna, Godmorgon Världen, Studio Ett, Filosofiska rummet m.fl.).",
     "political_leaning": "neutral",
-    "gal_tan_position": "center-left",
+    "gal_tan_position": "center",
     "economic_position": "center",
     "declared_ideology": "Opartisk och saklig (sändningstillstånd)",
     "primary_funder": "Public service-avgift",
@@ -1007,7 +1007,7 @@
     "founded_year": 1925,
     "classification_source": "SOM-institutet + Asp (2011)",
     "classification_confidence": "medium",
-    "classification_notes": "P1 är SR:s talkanal. Programmen Spanarna, Godmorgon Världen och Studio Ett samlar akademiker och journalister som regelbundna gäster — dessa tenderar att vara GAL-center-vänster."
+    "classification_notes": "P1 är SR:s talkanal. Programmen Spanarna, Godmorgon Världen och Studio Ett samlar akademiker och journalister som regelbundna gäster — dessa tenderar att vara GAL-center-vänster. OBS: gal_tan=center avser redaktionell linje; journalistkaren Asp (2011) center-left men det ar personal, ej editorial policy."
   },
   {
     "name": "Di Digital / DI-TV",
