@@ -153,6 +153,9 @@ export default function PoliticalMap({ orgs }: Props) {
                     <div className="font-medium">{org.name}</div>
                     <div className="text-gray-400">{TYPE_LABELS[org.type] ?? org.type}</div>
                     <div className="text-gray-300">{org.political_leaning} · {org.gal_tan_position}</div>
+                    {org.staff_bias_gal_tan && (
+                      <div className="text-gray-400 mt-0.5">Journalistkår: {org.staff_bias_gal_tan}</div>
+                    )}
                   </div>
                 )}
               </a>

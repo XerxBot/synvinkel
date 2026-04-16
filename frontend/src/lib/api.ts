@@ -25,6 +25,8 @@ export interface Organization {
   founded_year: number | null;
   classification_confidence: string;
   classification_notes: string | null;
+  staff_bias_gal_tan: string | null;
+  staff_bias_source: string | null;
   is_active: boolean;
   created_at: string;
   updated_at: string;

@@ -27,6 +27,8 @@ class OrganizationResponse(BaseModel):
     classification_source: Optional[str] = None
     classification_confidence: str = "high"
     classification_notes: Optional[str] = None
+    staff_bias_gal_tan: Optional[str] = None
+    staff_bias_source: Optional[str] = None
     created_at: datetime
     updated_at: datetime
 

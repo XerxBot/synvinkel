@@ -7,6 +7,14 @@ import {
   leaningToPosition, LEANING_LABELS, TYPE_LABELS,
 } from '../../lib/api';
 
+const GAL_TAN_BIAS_LABELS: Record<string, string> = {
+  'gal':          'GAL (progressiv journalistkår)',
+  'center-left':  'Centervänster',
+  'center':       'Center',
+  'center-right': 'Centerhöger',
+  'tan':          'TAN (traditionalistisk journalistkår)',
+};
+
 const { slug } = Astro.params;
 if (!slug) return Astro.redirect('/sources');
 
@@ -68,6 +76,26 @@ const pos = leaningToPosition(org.political_leaning);
               <p class="text-xs text-gray-500">Ekonomi: {org.economic_position}</p>
             )}
           </div>
+
+          {org.staff_bias_gal_tan && (
+            <div class="border-t border-gray-100 pt-4">
+              <p class="text-xs uppercase tracking-wide text-gray-400 mb-2">Journalistkårens bias</p>
+              <span class={`inline-flex items-center text-xs font-medium px-2.5 py-1 rounded-full ${
+                org.staff_bias_gal_tan === 'gal'          ? 'bg-green-100 text-green-700' :
+                org.staff_bias_gal_tan === 'center-left'  ? 'bg-teal-100 text-teal-700'   :
+                org.staff_bias_gal_tan === 'center'       ? 'bg-gray-100 text-gray-600'   :
+                org.staff_bias_gal_tan === 'center-right' ? 'bg-orange-100 text-orange-700' :
+                org.staff_bias_gal_tan === 'tan'          ? 'bg-red-100 text-red-700'     :
+                                                            'bg-gray-100 text-gray-600'
+              }`}>
+                {GAL_TAN_BIAS_LABELS[org.staff_bias_gal_tan] ?? org.staff_bias_gal_tan}
+              </span>
+              {org.staff_bias_source && (
+                <p class="text-xs text-gray-400 mt-1.5">{org.staff_bias_source}</p>
+              )}
+              <p class="text-xs text-gray-400 mt-1">Avser journalistkårens sammansättning, inte redaktionell policy.</p>
+            </div>
+          )}
 
           {org.declared_ideology && (
             <div>
