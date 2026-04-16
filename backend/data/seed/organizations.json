@@ -654,7 +654,6 @@
     "classification_confidence": "low",
     "classification_notes": "Ingen redaktionell profil — användargenererat. GAL-TAN-uppskattning baserad på demografisk analys av r/svenskpolitik-användare."
   },
-
   {
     "name": "Fokus",
     "slug": "fokus",
@@ -672,7 +671,6 @@
     "classification_confidence": "medium",
     "classification_notes": "Grundat 2005 av Martin Ahlquist, Martin Ådahl m.fl. Politisk chefredaktör Johan Hakelius (konservativ-liberal) och ansvarig utgivare Jon Åsberg. Ägare: Ax:son Johnson-sfären (borgerlig). Profil officiellt centristisk men redaktionell ton lutar center-right under Hakelius."
   },
-
   {
     "name": "Sista måltiden",
     "slug": "sista-maltiden",
@@ -690,7 +688,6 @@
     "classification_confidence": "medium",
     "classification_notes": "5 värdar: Fardost (liberal-centrist), Panshiri (liberal-konservativ, polis), Azizi (polis), Makram (islamkritiker/sekularist), Frick (höger-nationalistisk). Samlad profil: sekularistisk-liberal-konservativ, kritisk mot etablerade medier. Bjuder brett: Åkesson, Busch, Strömmer har gästat."
   },
-
   {
     "name": "Haveristerna",
     "slug": "haveristerna",
@@ -708,7 +705,6 @@
     "classification_confidence": "high",
     "classification_notes": "Grundad av Axel Luo Öhman och Henrik Johansson. Sanna Fielding gick in 2020 som medvärd. Johansson lämnade december 2024. Axel Luo Öhman dömd för förtal vid flera tillfällen. Tydlig vänster-antirasistisk profil."
   },
-
   {
     "name": "Framgångspodden",
     "slug": "framgangspodden",
@@ -726,7 +722,6 @@
     "classification_confidence": "medium",
     "classification_notes": "Apolitisk profil men marknadsorienterat narrativ kring individuell framgång och prestation — typisk center-right världsbild. Undviker partipolitik."
   },
-
   {
     "name": "Rak höger",
     "slug": "rak-hoger",
@@ -744,7 +739,6 @@
     "classification_confidence": "high",
     "classification_notes": "Ivar Arpi efter att ha lämnat SvD-ledarsidan och Bulletin. Kritisk mot invandringspolitik, identitetspolitik och mainstream-media. Top-20 nyhetspodcast."
   },
-
   {
     "name": "Bulletin",
     "slug": "bulletin",
@@ -762,7 +756,6 @@
     "classification_confidence": "high",
     "classification_notes": "Grundat dec 2020. Startade som 'liberalkonservativ', omdöpt till 'frihetligt konservativ' april 2021. Nuv. chefredaktör: Pelle Zachrisson (feb 2025, rekryterad från Nyheter Idag). Profil: invandringskritisk, anti-woke, kritisk mot public service."
   },
-
   {
     "name": "Parabol",
     "slug": "parabol",
@@ -780,7 +773,6 @@
     "classification_confidence": "high",
     "classification_notes": "Grundat aug 2023 av Kajsa Ekis Ekman (chefredaktör), Nina Björk, Aleksa Lundberg, Francisco Contreras, Emma Hager, Stefan Arvidsson. Vänster-intellektuellt projekt, marxistisk feministisk bas."
   },
-
   {
     "name": "Värvet",
     "slug": "varvet",
@@ -798,7 +790,6 @@
     "classification_confidence": "low",
     "classification_notes": "Kulturliberal profil utan tydlig politisk agenda. Triumf intervjuar brett — politiker, konstnärer, underhållare."
   },
-
   {
     "name": "God Ton",
     "slug": "god-ton",
@@ -815,5 +806,224 @@
     "classification_source": "Poddens innehåll + värdarnas bakgrunder",
     "classification_confidence": "high",
     "classification_notes": "Hanif Bali: fd M-riksdagsledamot 2010–2022 (Iranisk-svensk bakgrund, Järva-uppväxt). Kritisk mot bidragsberoende och invandringspolitik. Per Lindgren: jurist, fd politisk sekreterare M, kommunikationschef Skattebetalarna."
+  },
+  {
+    "name": "Smedjan",
+    "slug": "smedjan",
+    "type": "alternative_media",
+    "website": "https://smedjan.org",
+    "description": "Klassisk-liberal kulturtidskrift och nätpublikation grundad 2018 av Lars Anders Johansson.",
+    "political_leaning": "center-right",
+    "gal_tan_position": "center",
+    "economic_position": "right",
+    "declared_ideology": "Klassisk liberalism, kulturdebatt",
+    "primary_funder": "Prenumeranter",
+    "funding_category": "subscription",
+    "founded_year": 2018,
+    "classification_source": "Redaktionell profil + grundarens bakgrund",
+    "classification_confidence": "high",
+    "classification_notes": "Lars Anders Johansson: fd vd Musikerförbundet, klassisk liberal. Kritisk mot identitetspolitik och statlig kulturfinansiering."
+  },
+  {
+    "name": "Alternativ för Sverige",
+    "slug": "alternativ-for-sverige",
+    "type": "political_party",
+    "website": "https://www.alternativetsverige.se",
+    "description": "Höger-nationalistiskt parti grundat 2018 av avhoppare från SD. Förespråkar mer extrem invandringskritisk linje än SD.",
+    "political_leaning": "far-right",
+    "gal_tan_position": "tan",
+    "economic_position": "right",
+    "declared_ideology": "Nationalism, invandringsstopp, remigration",
+    "funding_category": "political_party",
+    "founded_year": 2018,
+    "classification_source": "Partiprogram + organisationshistorik",
+    "classification_confidence": "high",
+    "classification_notes": "Grundat av Gustav Kasselstrand och William Hahne efter intern SD-konflikt. Förespråkar fullständigt invandringsstopp och remigration. Utanför riksdagen."
+  },
+  {
+    "name": "Fria Tider",
+    "slug": "fria-tider",
+    "type": "alternative_media",
+    "website": "https://www.friatider.se",
+    "description": "Höger-nationalistisk nyhetssajt grundad 2010. Chefredaktör Vavra Suk. Upprepade PON-fällningar.",
+    "political_leaning": "far-right",
+    "gal_tan_position": "tan",
+    "economic_position": "right",
+    "declared_ideology": "Nationalistisk, invandringskritisk",
+    "primary_funder": "Annonsintäkter + donationer",
+    "funding_category": "commercial_media",
+    "founded_year": 2010,
+    "classification_source": "Redaktionell profil + Strömbäck et al. (2025) + PON-beslut",
+    "classification_confidence": "high",
+    "classification_notes": "Identifierad som höger-extremt alternativmedia i akademisk forskning. Upprepade pressombudsmansbeslut för vilseledande rapportering."
+  },
+  {
+    "name": "TV4",
+    "slug": "tv4",
+    "type": "media",
+    "website": "https://www.tv4.se",
+    "description": "Sveriges ledande kommersiella TV-kanal grundad 1990. Nyheterna är ett av landets mest sedda nyhetsprogram.",
+    "political_leaning": "neutral",
+    "gal_tan_position": "center",
+    "economic_position": "center",
+    "declared_ideology": "Kommersiell, oberoende",
+    "primary_funder": "Annonsintäkter",
+    "funding_category": "commercial_media",
+    "founded_year": 1990,
+    "classification_source": "Redaktionell profil",
+    "classification_confidence": "medium",
+    "classification_notes": "Ägt av Nordic Entertainment Group (NENT). Nyhetsprogrammen håller neutral linje. Mer tabloidpräglad än SVT."
+  },
+  {
+    "name": "Axess",
+    "slug": "axess",
+    "type": "alternative_media",
+    "website": "https://axess.se",
+    "description": "Kulturkonservativ kulturtidskrift och TV-kanal grundad 2003. Finansierad av Stiftelsen Ax:son Johnson.",
+    "political_leaning": "center-right",
+    "gal_tan_position": "tan",
+    "economic_position": "center-right",
+    "declared_ideology": "Kulturkonservatism, humanistisk-klassisk bildning",
+    "primary_funder": "Stiftelsen Ax:son Johnson",
+    "funding_category": "private_media",
+    "founded_year": 2003,
+    "classification_source": "Redaktionell profil + finansieringsanalys",
+    "classification_confidence": "high",
+    "classification_notes": "Finansierad av Ax:son Johnson-sfären (samma ägare som Fokus). Kulturkonservativt editorial med intellektuell profil. Kritisk mot relativism och politisk korrekthet."
+  },
+  {
+    "name": "Expressen TV",
+    "slug": "expressen-tv",
+    "type": "media",
+    "website": "https://www.expressen.se/tv",
+    "description": "Expressens digitala TV-kanal med debattprogram, podcasts och nyhetsanalys.",
+    "political_leaning": "center-left",
+    "gal_tan_position": "gal",
+    "economic_position": "center",
+    "declared_ideology": "Oberoende liberal",
+    "primary_funder": "Bonnierkoncernen",
+    "funding_category": "commercial_media",
+    "founded_year": 2010,
+    "classification_source": "Redaktionell profil (Expressen)",
+    "classification_confidence": "medium",
+    "classification_notes": "Del av Expressen — delar ledarsidans oberoende liberala profil."
+  },
+  {
+    "name": "Arbetet",
+    "slug": "arbetet",
+    "type": "alternative_media",
+    "website": "https://arbetet.se",
+    "description": "Facklig och progressiv nyhetstidning med rötter i arbetarrörelsen. Fokus på arbetsmarknad och fackliga frågor.",
+    "political_leaning": "left",
+    "gal_tan_position": "center-left",
+    "economic_position": "left",
+    "declared_ideology": "Facklig, progressiv, socialdemokratisk",
+    "primary_funder": "Fackförbund (LO-närstående)",
+    "funding_category": "union_affiliated",
+    "founded_year": 1887,
+    "classification_source": "Redaktionell profil + ägarstruktur",
+    "classification_confidence": "high",
+    "classification_notes": "En av Sveriges äldsta tidningar, nu digital. Facklig bas, kritisk mot kapital och nyliberalism. Nära LO-rörelsen."
+  },
+  {
+    "name": "Altinget Sverige",
+    "slug": "altinget",
+    "type": "media",
+    "website": "https://www.altinget.se",
+    "description": "Politisk nyhetssajt med djupbevakning av riksdag, departement och myndigheter. Ursprung från Danmark.",
+    "political_leaning": "neutral",
+    "gal_tan_position": "center",
+    "economic_position": "center",
+    "declared_ideology": "Politisk nyhetsjournalistik, oberoende",
+    "primary_funder": "Prenumeranter + annonsörer",
+    "funding_category": "subscription",
+    "founded_year": 2014,
+    "classification_source": "Redaktionell profil",
+    "classification_confidence": "medium",
+    "classification_notes": "Dansk ursprungskoncept, lanserat i Sverige 2014. Fokus på insiderinfo om politiska processer. Upplevs som Beltway-media, neutral men politikercentrerat perspektiv."
+  },
+  {
+    "name": "Svenska kyrkan",
+    "slug": "svenska-kyrkan",
+    "type": "interest_org",
+    "website": "https://www.svenskakyrkan.se",
+    "description": "Svenska kyrkan — evangelisk-luthersk folkkyrka, statskyrka till 2000. Stort kulturellt och politiskt inflytande.",
+    "political_leaning": "center-left",
+    "gal_tan_position": "gal",
+    "economic_position": "center-left",
+    "declared_ideology": "Evangelisk-luthersk kristendom",
+    "primary_funder": "Kyrkoavgift + statsstöd",
+    "funding_category": "mixed",
+    "founded_year": 1523,
+    "classification_source": "Kyrkans officiella position + SOM-institutet",
+    "classification_confidence": "medium",
+    "classification_notes": "Kyrkostyrelsen och biskoparna tenderar GAL-liberal position i sociala frågor. Officiellt neutral men progressiv på frågor om genus, HBTQ och migration."
+  },
+  {
+    "name": "Piratpartiet",
+    "slug": "piratpartiet",
+    "type": "political_party",
+    "website": "https://www.piratpartiet.se",
+    "description": "Piratpartiet — fokus på yttrandefrihet, integritet och upphovsrätt. Riksdagsparti 2010–2014.",
+    "political_leaning": "center",
+    "gal_tan_position": "gal",
+    "economic_position": "center",
+    "declared_ideology": "Digitala rättigheter, yttrandefrihet, integritet",
+    "funding_category": "political_party",
+    "founded_year": 2006,
+    "classification_source": "Partiprogram",
+    "classification_confidence": "high",
+    "classification_notes": "Riksdagsparti 2010–2014 (2 mandat). EU-parlamentariker. Frontade digitala rättighetsfrågor. Inte längre i riksdagen men fortfarande aktiva."
+  },
+  {
+    "name": "TV4 Nyheterna",
+    "slug": "tv4-nyheterna",
+    "type": "media",
+    "website": "https://www.tv4.se/nyheterna",
+    "description": "TV4:s nyhetssändningar — ett av Sveriges mest sedda nyhetsprogram.",
+    "political_leaning": "neutral",
+    "gal_tan_position": "center",
+    "economic_position": "center",
+    "declared_ideology": "Kommersiell, oberoende nyhetsjournalistik",
+    "primary_funder": "Annonsintäkter (TV4/NENT)",
+    "funding_category": "commercial_media",
+    "founded_year": 1991,
+    "classification_source": "Redaktionell profil",
+    "classification_confidence": "medium",
+    "classification_notes": "Kommersiella nyheter. Tabloidpräglad men högt förtroende. Mer personcentrerad journalistik än SVT."
+  },
+  {
+    "name": "SR P1",
+    "slug": "sr-p1",
+    "type": "public_broadcaster",
+    "website": "https://sverigesradio.se/p1",
+    "description": "Sveriges Radios talade ord-kanal med nyheter, debatt och samhällsprogram (Spanarna, Godmorgon Världen, Studio Ett, Filosofiska rummet m.fl.).",
+    "political_leaning": "neutral",
+    "gal_tan_position": "center-left",
+    "economic_position": "center",
+    "declared_ideology": "Opartisk och saklig (sändningstillstånd)",
+    "primary_funder": "Public service-avgift",
+    "funding_category": "public_service",
+    "founded_year": 1925,
+    "classification_source": "SOM-institutet + Asp (2011)",
+    "classification_confidence": "medium",
+    "classification_notes": "P1 är SR:s talkanal. Programmen Spanarna, Godmorgon Världen och Studio Ett samlar akademiker och journalister som regelbundna gäster — dessa tenderar att vara GAL-center-vänster."
+  },
+  {
+    "name": "Di Digital / DI-TV",
+    "slug": "di-tv",
+    "type": "media",
+    "website": "https://www.di.se/ditv",
+    "description": "Dagens Industris digitala TV-kanal och podcasts. Affärsnyheter, intervjuer och debatt om näringsliv och ekonomi.",
+    "political_leaning": "right",
+    "gal_tan_position": "center",
+    "economic_position": "right",
+    "declared_ideology": "Oberoende (näringsliv), marknadsliberal",
+    "primary_funder": "Bonnierkoncernen",
+    "funding_category": "commercial_media",
+    "founded_year": 2010,
+    "classification_source": "Redaktionell profil (DI)",
+    "classification_confidence": "medium",
+    "classification_notes": "Ingår i DI-sfären med tydlig marknadsliberal profil. Ekonomiexperter och VD-intervjuer dominerar."
   }
 ]
